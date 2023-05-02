@@ -12,6 +12,7 @@ function App() {
 
   return (
     <Switch>
+      <Route />
       <Route path="/login" component={ Login } />
     </Switch>
 
