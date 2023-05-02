@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.bulkInsert('users', [
+    await queryInterface.bulkInsert('products', [
       {
         id: 1,
         name: 'Skol Lata 250ml',
@@ -70,6 +70,6 @@ module.exports = {
     ], {});
   },
   down: async (queryInterface) => {
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('products', null, {});
   },
 };

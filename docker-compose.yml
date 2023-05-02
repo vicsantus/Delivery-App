@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   frontend:
+    container_name: frontend
     build: ./front-end
     ports:
       - 3000:3000
@@ -12,7 +13,7 @@ services:
     # Os `healthcheck` devem garantir que a aplicação
     # está operacional, antes de liberar o container
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      test: [ "CMD", "lsof", "-t", "-i:3000" ]         
       timeout: 10s
       retries: 5
   backend:
@@ -24,7 +25,7 @@ services:
     working_dir: /back-end
     # IMPORTANTE - Caso queira que o container esteja atualizado durante o desenvolvimento, sem que você precise ficar fazendo down e up dos containers, descomente as 3 linhas abaixo
     command: dev
-    volumes: 
+    volumes:
       - ./back-end/src:/back-end/src
     depends_on:
       db:
@@ -39,7 +40,7 @@ services:
       - DB_HOST=db
       - DB_PORT=3306
     healthcheck:
-      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      test: [ "CMD", "lsof", "-t", "-i:3001" ]         
       timeout: 10s
       retries: 5
   db:
@@ -47,12 +48,12 @@ services:
     container_name: db
     platform: linux/x86_64
     ports:
-      - 3306:3306 
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]         
       timeout: 10s
       retries: 5
     cap_add:
