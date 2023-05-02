@@ -20,10 +20,6 @@ export default function GenericForm() {
     });
   }
 
-  function checkLogin() {
-
-  }
-
   useEffect(() => {
     const SIX = 6;
 
@@ -86,8 +82,6 @@ export default function GenericForm() {
          data-testid="common_login__button-login"
          variant="primary"
          type="submit"
-         // eslint-disable-next-line react/jsx-no-bind
-         onClick={ checkLogin }
          disabled={ disabled }
        >
          Login
