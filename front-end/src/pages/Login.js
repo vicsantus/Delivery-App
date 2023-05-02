@@ -1,5 +1,7 @@
+import GenericForm from '../components/Form';
+
 export default function Login() {
   return (
-    <div>Login</div>
+    <div><GenericForm /></div>
   );
 }
