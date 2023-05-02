@@ -22,9 +22,7 @@ export default function GenericForm() {
 
   useEffect(() => {
     const SIX = 6;
-
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-
     const emailCheck = emailRegex.test(user.email);
     const passCheck = user.password.length >= SIX;
 
