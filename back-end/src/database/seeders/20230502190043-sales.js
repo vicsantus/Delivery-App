@@ -1,24 +1,13 @@
+/* eslint-disable strict */
+// eslint-disable-next-line lines-around-directive
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  up: async (queryInterface) => {
+    await queryInterface.bulkInsert('sales', [], {});
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete('sales', null, {});
+  },
 };

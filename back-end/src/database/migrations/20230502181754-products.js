@@ -1,8 +1,7 @@
-"use strict";
-
 module.exports = {
+  // eslint-disable-next-line max-lines-per-function
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("products", {
+    await queryInterface.createTable('products', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,13 +16,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(4, 2),
       },
-      url_image: {
+      urlImage: {
         allowNull: false,
         type: Sequelize.STRING(200),
+        field: 'url_image',
       },
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable("products");
+    await queryInterface.dropTable('products');
   },
 };
