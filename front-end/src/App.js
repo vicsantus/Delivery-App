@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import rockGlass from './images/rockGlass.svg';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import Login from './pages/Login';
 
 function App() {
+  const history = useHistory();
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === '/') { history.push('login'); }
+  });
+
   return (
-    <div className="App">
-      <span className="logo">TRYBE</span>
-      <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-        Glass
-      </object>
-    </div>
+    <Switch>
+      <Route path="/login" component={ Login } />
+    </Switch>
+
   );
 }
 
