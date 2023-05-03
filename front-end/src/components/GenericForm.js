@@ -1,6 +1,7 @@
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import '../styles/GenericFormStyles.css';
 
 export default function GenericForm() {
   const history = useHistory();
@@ -15,6 +16,15 @@ export default function GenericForm() {
     password: '',
     name: '',
   });
+
+  const dataTestid = {
+    name: 'input_name',
+    password: 'input_password',
+    buttonLogin: 'button_login',
+    buttonRegister: 'button_register',
+    invalidRedister: 'element-invalid-register',
+    invalidEmail: 'element-invalid-email',
+  };
 
   function handleChange({ target }) {
     setUser({
@@ -46,71 +56,79 @@ export default function GenericForm() {
   }
 
   return (
-    <Form>
-      {
-        !checkPath && (
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nome</Form.Label>
-            <Form.Control
-              data-testid="common_register__input-name"
-              type="text"
-              name="name"
-              onChange={ (e) => handleChange(e) }
-              placeholder="Seu nome"
-            />
-          </Form.Group>)
-      }
+    <div className="form">
+      <Form>
+        {
+          !checkPath && (
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                data-testid={ `${register}__${dataTestid.name}` }
+                type="text"
+                name="name"
+                onChange={ (e) => handleChange(e) }
+                placeholder="Seu nome"
+              />
+            </Form.Group>)
+        }
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>{!checkPath ? 'Email' : 'Login'}</Form.Label>
-        <Form.Control
-          data-testid={ `${!checkPath ? register : login}__input-name` }
-          type="email"
-          onChange={ (e) => handleChange(e) }
-          name="email"
-          placeholder="exemplo@exemplo.com"
-        />
-        <Form.Text className="text-muted" />
-      </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>{!checkPath ? 'Email' : 'Login'}</Form.Label>
+          <Form.Control
+            data-testid={ `${!checkPath ? register : login}__${dataTestid.name}` }
+            type="email"
+            onChange={ (e) => handleChange(e) }
+            name="email"
+            placeholder="exemplo@exemplo.com"
+          />
+          <Form.Text className="text-muted" />
+        </Form.Group>
 
-      <Form.Group
-        data-testid={ `${!checkPath ? register : login}__input-password` }
-        className="mb-3"
-        controlId="formBasicPassword"
-      >
-        <Form.Label>Senha</Form.Label>
-        <Form.Control
-          type="password"
-          name="password"
-          onChange={ (e) => handleChange(e) }
-          placeholder="*******"
-        />
-      </Form.Group>
-      {checkPath
-     && (
-       <Button
-         data-testid="common_login__button-login"
-         variant="primary"
-         type="submit"
-         disabled={ disabled }
-       >
-         Login
-       </Button>)}
-      <Button
-        data-testid={ `${!checkPath ? register : login}__button-register` }
-        variant="primary"
-        type="submit"
-        onClick={ () => buttonRegister() }
-        disabled={ !checkPath && registerIsDisabled }
-      >
-        {checkPath ? 'Ainda não tenho cadastro' : 'CADASTRAR' }
-      </Button>
+        <Form.Group
+          data-testid={ `${!checkPath ? register : login}__${dataTestid.password}` }
+          className="mb-3"
+          controlId="formBasicPassword"
+        >
+          <Form.Label>Senha</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            onChange={ (e) => handleChange(e) }
+            placeholder="*******"
+          />
+        </Form.Group>
+      </Form>
+      <div className="d-grid gap-2">
+        {checkPath
+           && (
+             <Button
+               data-testid={ `${login}__${dataTestid.buttonLogin}` }
+               variant="success"
+               type="submit"
+               disabled={ disabled }
+             >
+               Login
+             </Button>)}
+
+        <Button
+          data-testid={ `${!checkPath ? register
+            : login}__${dataTestid.buttonRegister}` }
+          variant="success"
+          type="submit"
+          onClick={ () => buttonRegister() }
+          disabled={ !checkPath && registerIsDisabled }
+        >
+          {checkPath ? 'Ainda não tenho cadastro' : 'CADASTRAR' }
+        </Button>
+
+      </div>
+
       <spam
-        data-testid={ !checkPath ? `${register}__element-invalid-register`
-          : `${login}__element-invalid-email` }
+        data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
+          : `${login}__${dataTestid.invalidEmail}` }
       >
-        Mensagem de Erro
+        {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
       </spam>
-    </Form>
+    </div>
   );
 }
