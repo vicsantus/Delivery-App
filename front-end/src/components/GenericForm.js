@@ -97,39 +97,38 @@ export default function GenericForm() {
             placeholder="*******"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          {checkPath
-     && (
-       <Button
-         data-testid={ `${login}__${dataTestid.buttonLogin}` }
-         variant="success"
-         type="submit"
-         disabled={ disabled }
-       >
-         Login
-       </Button>)}
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Button
-            data-testid={ `${!checkPath ? register
-              : login}__${dataTestid.buttonRegister}` }
-            variant="success"
-            type="submit"
-            onClick={ () => buttonRegister() }
-            disabled={ !checkPath && registerIsDisabled }
-          >
-            {checkPath ? 'Ainda não tenho cadastro' : 'CADASTRAR' }
-          </Button>
-        </Form.Group>
-
-        <spam
-          data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
-            : `${login}__${dataTestid.invalidEmail}` }
-        >
-          {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
-        </spam>
       </Form>
+      <div className="d-grid gap-2">
+        {checkPath
+           && (
+             <Button
+               data-testid={ `${login}__${dataTestid.buttonLogin}` }
+               variant="success"
+               type="submit"
+               disabled={ disabled }
+             >
+               Login
+             </Button>)}
+
+        <Button
+          data-testid={ `${!checkPath ? register
+            : login}__${dataTestid.buttonRegister}` }
+          variant="success"
+          type="submit"
+          onClick={ () => buttonRegister() }
+          disabled={ !checkPath && registerIsDisabled }
+        >
+          {checkPath ? 'Ainda não tenho cadastro' : 'CADASTRAR' }
+        </Button>
+
+      </div>
+
+      <spam
+        data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
+          : `${login}__${dataTestid.invalidEmail}` }
+      >
+        {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
+      </spam>
     </div>
   );
 }
