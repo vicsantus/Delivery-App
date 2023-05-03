@@ -1,4 +1,4 @@
-import GenericForm from '../components/Form';
+import GenericForm from '../components/GenericForm';
 
 export default function Login() {
   return (

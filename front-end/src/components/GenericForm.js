@@ -1,16 +1,19 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 
 export default function GenericForm() {
+  const history = useHistory();
   const location = useLocation();
   const checkPath = location.pathname === '/login';
   const login = 'common_login';
   const register = 'common_register';
   const [disabled, setDisabled] = useState(true);
+  const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
   const [user, setUser] = useState({
     email: '',
     password: '',
+    name: '',
   });
 
   function handleChange({ target }) {
@@ -22,18 +25,25 @@ export default function GenericForm() {
 
   useEffect(() => {
     const SIX = 6;
-
+    const TWELVE = 12;
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-
     const emailCheck = emailRegex.test(user.email);
     const passCheck = user.password.length >= SIX;
+    const nameCheck = user.name.length >= TWELVE;
 
     if (emailCheck && passCheck) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [user.email, user.password]);
+    if (!disabled && nameCheck) {
+      setRegisterIsDisabled(false);
+    }
+  }, [user.email, user.password, user.name, disabled]);
+
+  function buttonRegister() {
+    history.push('/register');
+  }
 
   return (
     <Form>
@@ -90,6 +100,8 @@ export default function GenericForm() {
         data-testid={ `${!checkPath ? register : login}__button-register` }
         variant="primary"
         type="submit"
+        onClick={ () => buttonRegister() }
+        disabled={ !checkPath && registerIsDisabled }
       >
         {checkPath ? 'Ainda não tenho cadastro' : 'CADASTRAR' }
       </Button>
