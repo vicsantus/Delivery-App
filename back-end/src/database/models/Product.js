@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     urlImage: DataTypes.STRING,
   });
   Product.associate = (models) => {
-    User.hasMany(models.SaleProduct, {
+    Product.hasMany(models.SalesProducts, {
       foreignKey: 'sale_id',
       as: 'saleId',
     });
