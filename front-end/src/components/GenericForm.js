@@ -10,6 +10,7 @@ export default function GenericForm() {
   const login = 'common_login';
   const register = 'common_register';
   const [disabled, setDisabled] = useState(true);
+  const [hiddenMessage, setHiddenMessage] = useState(false);
   const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
   const [user, setUser] = useState({
     email: '',
@@ -31,6 +32,46 @@ export default function GenericForm() {
       ...user,
       [target.name]: target.value,
     });
+  }
+
+  async function requestLogin() {
+    const data = {
+      email: user.email,
+      password: user.password,
+    };
+    const request = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const response = await request.text();
+    const json = response === '' ? {} : JSON.parse(response);
+    return json;
+  }
+
+  async function verifyLogin() {
+    const responseUser = await requestLogin();
+    console.log(responseUser);
+    if (responseUser.menssagem) {
+      setHiddenMessage(true);
+    }
+    if (responseUser.role === 'administrator') {
+      return history.push('/adminitrator');
+    }
+    if (responseUser.role === 'seller') {
+      return history.push('/seller');
+    }
+    return history.push('/costumer');
+  }
+
+  function handleClick() {
+    requestLogin();
+    verifyLogin();
   }
 
   useEffect(() => {
@@ -106,6 +147,7 @@ export default function GenericForm() {
                variant="success"
                type="submit"
                disabled={ disabled }
+               onClick={ () => handleClick() }
              >
                Login
              </Button>)}
@@ -123,12 +165,14 @@ export default function GenericForm() {
 
       </div>
 
-      <spam
-        data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
-          : `${login}__${dataTestid.invalidEmail}` }
-      >
-        {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
-      </spam>
+      {hiddenMessage
+      && (
+        <spam
+          data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
+            : `${login}__${dataTestid.invalidEmail}` }
+        >
+          {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
+        </spam>) }
     </div>
   );
 }
