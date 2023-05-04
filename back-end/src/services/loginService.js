@@ -1,7 +1,7 @@
 // const bcrypt = require('bcryptjs');
 // const md5 = require('md5');
 // const crypto = require('crypto');
-const { User } = require('../database/models');
+const { User } = require('../database/models/index');
 
 const getByUser = async (email, _password) => {
   const result = await User.findOne({ where: { email } });

@@ -1,5 +1,3 @@
-const { Model } = require('sequelize');
-
 /**
  * 
  * @param {import('sequelize').Sequelize} sequelize 
