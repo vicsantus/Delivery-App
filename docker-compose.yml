@@ -9,13 +9,7 @@ services:
     working_dir: /front-end
     depends_on:
       backend:
-        condition: service_healthy
-    # Os `healthcheck` devem garantir que a aplicação
-    # está operacional, antes de liberar o container
-    healthcheck:
-      test: [ "CMD", "lsof", "-t", "-i:3000" ]
-      timeout: 10s
-      retries: 5
+        condition: service_started
   backend:
     container_name: backend
     build: ./back-end
@@ -23,38 +17,35 @@ services:
       - 3001:3001
     platform: linux/x86_64
     working_dir: /back-end
-    # IMPORTANTE - Caso queira que o container esteja atualizado durante o desenvolvimento, sem que você precise ficar fazendo down e up dos containers, descomente as 3 linhas abaixo
     command: dev
     volumes:
-      - ./back-end/src:/back-end/src
+      - ./back-end:/back-end
     depends_on:
-      db:
-        condition: service_healthy
+      database:
+        condition: service_started
     environment:
-      - APP_PORT=3001
       - JWT_SECRET=jwt_secret
       # Os dados abaixo se referem ao container `db`
       # Dica: Relembre aqui da comunicação interna entre containers
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=delivery-app
-      - DB_PORT=3306
-    healthcheck:
-      test: [ "CMD", "lsof", "-t", "-i:3001" ]
-      timeout: 10s
-      retries: 5
-  db:
+      - NODE_ENV=development
+      - API_PORT=3001
+      - MYSQL_HOST=database
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+  database:
     image: mysql:8.0.21
-    container_name: db
+    container_name: database
     platform: linux/x86_64
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
     cap_add:
       - SYS_NICE # Deve omitir alertas menores
+networks:
+  # Rede padrão, criada automaticamente
+  default:
+    # Dá um nome específico à rede padrão
+    name: delivery-app
