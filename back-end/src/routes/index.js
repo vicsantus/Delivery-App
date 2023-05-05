@@ -8,5 +8,6 @@ const router = express.Router();
 router.get('/products', getAllProducts);
 router.post('/login', getByUser);
 router.post('/register', createUser);
+router.post('/sales'); // requisito 20
 
 module.exports = router;
