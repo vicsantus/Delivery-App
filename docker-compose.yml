@@ -7,6 +7,8 @@ services:
       - 3000:3000
     platform: linux/x86_64
     working_dir: /front-end
+    volumes:
+      - ./front-end:/front-end
   #   depends_on:
   #     backend:
   #       condition: service_started
