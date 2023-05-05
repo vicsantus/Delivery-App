@@ -9,7 +9,13 @@ const createUser = async (user) => {
 
   const senhaHash = crypto.createHash('md5').update(password).digest('hex');
 
-  await User.create({ name, email, password: senhaHash, role });
+  const result = await User.create({
+    name,
+    email,
+    password: senhaHash,
+    role: !role ? 'customer' : role,
+  });
+  return { id: result.null, name: result.name, email: result.email, role: result.role };
 };
 
 module.exports = { createUser };
