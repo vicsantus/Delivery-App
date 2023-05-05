@@ -114,8 +114,7 @@ export default function GenericForm() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log(!response.message === 'created');
-    if (response.message !== 'created') {
+    if (response.message === 'Email already registered') {
       return setHiddenMessage(true);
     }
     return history.push('/customer/products');
