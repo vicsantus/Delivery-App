@@ -5,7 +5,7 @@ const secret = process.env.JWT_SECRET || 'segredinho';
 const createToken = (data) => {
   const JWT_CONFIG = {
     algorithm: 'HS256',
-    expiresIn: '1h',
+    expiresIn: '24h',
   };
 
   const token = jwt.sign({ data }, secret, JWT_CONFIG);
