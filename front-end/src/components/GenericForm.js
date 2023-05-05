@@ -1,7 +1,8 @@
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../styles/GenericFormStyles.css';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function GenericForm() {
   const history = useHistory();
@@ -17,13 +18,19 @@ export default function GenericForm() {
     password: '',
     name: '',
   });
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+  const { setDataUser } = useContext(DeliveryContext);
 
   const dataTestid = {
-    name: 'input_name',
-    password: 'input_password',
-    buttonLogin: 'button_login',
-    buttonRegister: 'button_register',
-    invalidRedister: 'element-invalid-register',
+    name: 'input-name',
+    password: 'input-password',
+    email: 'input-email',
+    buttonLogin: 'button-login',
+    buttonRegister: 'button-register',
+    invalidRedister: 'element-invalid_register',
     invalidEmail: 'element-invalid-email',
   };
 
@@ -42,10 +49,7 @@ export default function GenericForm() {
     const request = await fetch('http://localhost:3001/login', {
       method: 'POST',
       mode: 'cors',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(data),
     });
 
@@ -57,6 +61,7 @@ export default function GenericForm() {
   async function verifyLogin() {
     const responseUser = await requestLogin();
     console.log(responseUser);
+    setDataUser(responseUser);
     if (responseUser.menssagem) {
       setHiddenMessage(true);
     }
@@ -66,7 +71,10 @@ export default function GenericForm() {
     if (responseUser.role === 'seller') {
       return history.push('/seller');
     }
-    return history.push('/costumer');
+    if (responseUser.role === 'customer') {
+      return history.push('/customer/products');
+    }
+    setHiddenMessage(true);
   }
 
   function handleClick() {
@@ -92,8 +100,32 @@ export default function GenericForm() {
     }
   }, [user.email, user.password, user.name, disabled]);
 
+  async function registerUser() {
+    const data = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: 'customer',
+    };
+    const request = await fetch('http://localhost:3001/register', {
+      method: 'POST',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify(data),
+    });
+    const response = await request.json();
+    console.log(!response.message === 'created');
+    if (response.message !== 'created') {
+      return setHiddenMessage(true);
+    }
+    return history.push('/customer/products');
+  }
+
   function buttonRegister() {
-    history.push('/register');
+    if (checkPath) {
+      return history.push('/register');
+    }
+    return registerUser();
   }
 
   return (
@@ -116,7 +148,7 @@ export default function GenericForm() {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>{!checkPath ? 'Email' : 'Login'}</Form.Label>
           <Form.Control
-            data-testid={ `${!checkPath ? register : login}__${dataTestid.name}` }
+            data-testid={ `${!checkPath ? register : login}__${dataTestid.email}` }
             type="email"
             onChange={ (e) => handleChange(e) }
             name="email"
@@ -126,13 +158,13 @@ export default function GenericForm() {
         </Form.Group>
 
         <Form.Group
-          data-testid={ `${!checkPath ? register : login}__${dataTestid.password}` }
           className="mb-3"
           controlId="formBasicPassword"
         >
           <Form.Label>Senha</Form.Label>
           <Form.Control
             type="password"
+            data-testid={ `${!checkPath ? register : login}__${dataTestid.password}` }
             name="password"
             onChange={ (e) => handleChange(e) }
             placeholder="*******"
@@ -171,7 +203,7 @@ export default function GenericForm() {
           data-testid={ !checkPath ? `${register}__${dataTestid.invalidRedister}`
             : `${login}__${dataTestid.invalidEmail}` }
         >
-          {!checkPath ? 'Erro para registrar a conta' : 'Usuario ou senha incorreta'}
+          {!checkPath ? 'Email ja cadastrado' : 'Usuario ou senha incorreta'}
         </spam>) }
     </div>
   );
