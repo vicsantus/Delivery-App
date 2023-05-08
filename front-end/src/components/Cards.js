@@ -100,6 +100,7 @@ export default function Cards() {
           </Card>
         </Col>
       ))}
+      <Button>Ver Carriho</Button>
     </Row>
   );
 }

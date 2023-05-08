@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import DeliveryContext from '../context/DeliveryContext';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
 export default function NavBar() {
-  // const history = useHistory();
+  const history = useHistory();
   // const { location: { pathname } } = history;
-  const { dataUser } = useContext(DeliveryContext);
+  const [user, setUser] = useState();
   const customerProducts = 'customer_products';
   const dataTestid = {
     products: 'element-navbar-link-products',
@@ -14,6 +13,17 @@ export default function NavBar() {
     fullName: 'element-navbar-user-full-name',
     logout: 'element-navbar-link-logout',
   };
+
+  useEffect(() => {
+    const objUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(objUser);
+    setUser(parsedUser);
+  }, []);
+
+  function logout() {
+    localStorage.removeItem('user');
+    history.push('/login');
+  }
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
@@ -38,15 +48,15 @@ export default function NavBar() {
             <Nav.Link
               data-testid={ `${customerProducts}__${dataTestid.fullName}` }
             >
-              {dataUser?.name}
+              {user?.name}
             </Nav.Link>
-            <Nav.Link
+            <Button
               eventKey={ 2 }
               data-testid={ `${customerProducts}__${dataTestid.logout}` }
-              href="/login"
+              onClick={ () => logout() }
             >
               Sair
-            </Nav.Link>
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
