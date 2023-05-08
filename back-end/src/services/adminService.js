@@ -11,7 +11,7 @@ const createAdmin = async (user) => {
 
   const result = await User.create({ name, email, password: senhaHash, role });
 
-  return result;
+  return { id: result.null, name: result.name, email: result.email, role: result.role };
 };
 
 module.exports = {
