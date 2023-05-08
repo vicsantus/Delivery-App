@@ -4,7 +4,7 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
 export default function NavBar() {
   const history = useHistory();
-  // const { location: { pathname } } = history;
+  const { location: { pathname } } = history;
   const [user, setUser] = useState();
   const customerProducts = 'customer_products';
   const dataTestid = {
@@ -13,6 +13,8 @@ export default function NavBar() {
     fullName: 'element-navbar-user-full-name',
     logout: 'element-navbar-link-logout',
   };
+
+  const checkPath = pathname === '/customer/products';
 
   useEffect(() => {
     const objUser = localStorage.getItem('user');

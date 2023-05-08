@@ -4,6 +4,7 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 export default function Cards() {
   const [data, setData] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const [cartTotal, setCartTotal] = useState(0);
   const customerProducts = 'customer_products';
   const dataTestid = {
     price: 'element-card-price',
@@ -12,11 +13,9 @@ export default function Cards() {
     addItem: 'button-card-add-item',
     rmItem: 'button-card-rm-item',
     quantity: 'input-card-quantity',
+    buttonCart: 'button-cart',
+    buttonValue: 'checkout-bottom-value',
   };
-
-  // customer_products__input-card-quantity-1
-  // customer_products__input-card-quantity-'][data-testid$='-1'
-  // customer_products__input-card-quantity-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +30,28 @@ export default function Cards() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const calculateCartTotal = () => {
+      let total = 0;
+
+      data.forEach((p) => {
+        const quantity = quantities[p.id] || 0;
+        total += p.price * quantity;
+      });
+
+      setCartTotal(total);
+    };
+
+    calculateCartTotal();
+  }, [quantities, data]);
+
+  const handleQuantityChange = (productId, quantity) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: quantity,
+    }));
+  };
 
   const handleAdd = (productId) => {
     setQuantities((prevQuantities) => ({
@@ -60,6 +81,7 @@ export default function Cards() {
             <Card.Img
               data-testid={ `${customerProducts}__${dataTestid.image}-${p.id}` }
               variant="top"
+              style={ { width: '320px', height: '320px' } }
               src={ p.urlImage }
             />
             <Card.Body>
@@ -86,7 +108,9 @@ export default function Cards() {
               <Form>
                 <Form.Control
                   data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
-                  value={ quantities[p.id] || 0 }
+                  value={ quantities[p.id] || '' }
+                  onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
+
                 />
               </Form>
 
@@ -100,7 +124,18 @@ export default function Cards() {
           </Card>
         </Col>
       ))}
-      <Button>Ver Carriho</Button>
+      <Button
+        data-testid={ `${customerProducts}__${dataTestid.buttonCart}` }
+      >
+        Ver Carriho
+        {' '}
+        <span
+          data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }
+        >
+          {cartTotal}
+        </span>
+
+      </Button>
     </Row>
   );
 }
