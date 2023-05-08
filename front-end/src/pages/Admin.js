@@ -1,26 +1,53 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
 export default function Admin() {
-  const location = useLocation();
-  const checkPath = location.pathname === '/administrator';
+  const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+    name: '',
+    role: 'Administrador',
+  });
+
+  function handleChange({ target }) {
+    const { name, value } = target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  }
+
+  useEffect(() => {
+    const SIX = 6;
+    const TWELVE = 12;
+    const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+    const emailCheck = emailRegex.test(user.email);
+    const passCheck = user.password.length >= SIX;
+    const nameCheck = user.name.length >= TWELVE;
+
+    if (emailCheck && passCheck) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+    if (!disabled && nameCheck) {
+      setRegisterIsDisabled(false);
+    }
+  }, [user.email, user.password, user.name, disabled]);
 
   return (
     <Form>
-      {
-        !checkPath && (
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nome</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              onChange={ (e) => handleChange(e) }
-              placeholder="Seu nome"
-            />
-          </Form.Group>)
-      }
-
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Nome</Form.Label>
+        <Form.Control
+          type="text"
+          name="name"
+          onChange={ (e) => handleChange(e) }
+          placeholder="Seu nome"
+        />
+      </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
@@ -49,13 +76,24 @@ export default function Admin() {
         controlId="formBasicPassword"
       >
         <Form.Label>Role</Form.Label>
-        <Form.Select>
-          <option value="1">Administrador</option>
-          <option value="2">Seller</option>
-          <option value="3">Customer</option>
+        <Form.Select
+          name="role"
+          value={ user.role }
+        >
+          <option value="Administrador">Administrador</option>
+          <option value="Seller">Seller</option>
+          <option value="Customer">Customer</option>
 
         </Form.Select>
       </Form.Group>
+      <Button
+        variant="success"
+        type="submit"
+        // onClick={ () => buttonRegister() }
+        disabled={ registerIsDisabled }
+      >
+        Cadastrar
+      </Button>
     </Form>
   );
 }
