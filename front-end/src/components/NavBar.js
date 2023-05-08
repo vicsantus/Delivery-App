@@ -8,7 +8,6 @@ export default function NavBar() {
   const { location: { pathname } } = history;
   const checkPath = pathname === '/client';
   const { dataUser } = useContext(DeliveryContext);
-  // const arrayDataUser = [dataUser];
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
@@ -24,7 +23,7 @@ export default function NavBar() {
           href="#home"
           data-testid="customer_products__element-navbar-link-orders"
         >
-          MEUS PEDIDOS
+          {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
