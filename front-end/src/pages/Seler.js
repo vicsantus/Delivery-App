@@ -30,21 +30,56 @@ export default function Seler() {
     requestSales();
   }, []);
 
+  function formattedDate(today) {
+    const todayFormatted = today.split('T');
+    const newDate = new Date(todayFormatted[0]);
+    const TEM = 10;
+    const yyyy = newDate.getFullYear();
+    let mm = newDate.getMonth() + 1;
+    let dd = newDate.getDate();
+    if (dd < TEM) dd = `0${dd}`;
+    if (mm < TEM) mm = `0${mm}`;
+    return `${dd}/${mm}/${yyyy}`;
+  }
+
   return (
     <>
       <NavBar />
       <main>
         { sales.map((sale) => (
           <section
+            style={ { border: '1px solid black', margin: '5px' } } // temporario
             key={ sale.id }
           >
             <div>
               <p
-                data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
+                data-testid={ `seller_orders__element-delivery-order-id-${sale.id}` }
               >
                 {`Pedido ${sale.id}`}
               </p>
             </div>
+            <div
+              data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
+            >
+              {sale.status}
+            </div>
+            <div>
+              <p
+                data-testid={ `seller_orders__element-card-price-${sale.id}` }
+              >
+                {`R$${sale.totalPrice}`}
+              </p>
+              <p
+                data-testid={ `seller_orders__element-order-date-${sale.id}` }
+              >
+                {formattedDate(sale.saleDate)}
+              </p>
+            </div>
+            <p
+              data-testid={ `seller_orders__element-card-address-${sale.id}` }
+            >
+              {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
+            </p>
             <div />
           </section>
         ))}
