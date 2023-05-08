@@ -15,7 +15,7 @@ function App() {
 
   return (
     <Switch>
-      <Route path="/seller" component={ Seler } />
+      <Route path="/seller/orders" component={ Seler } />
       <Route path="/client" component={ Client } />
       <Route path="/register" component={ Register } />
       <Route path="/login" component={ Login } />
