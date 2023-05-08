@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react';
 import DeliveryContext from './DeliveryContext';
 
 export default function DeliveryProvider({ children }) {
-  const [dataUser, setDataUser] = useState([]);
+  const [dataUser, setDataUser] = useState({});
 
   const value = useMemo(() => ({
     dataUser,

@@ -60,7 +60,6 @@ export default function GenericForm() {
 
   async function verifyLogin() {
     const responseUser = await requestLogin();
-
     if (responseUser.menssagem) {
       setHiddenMessage(true);
     }
