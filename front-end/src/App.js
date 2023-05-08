@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Client from './pages/Client';
 import Seler from './pages/Seler';
+import Admin from './pages/Admin';
 
 function App() {
   const history = useHistory();
@@ -19,6 +20,7 @@ function App() {
       <Route path="/client" component={ Client } />
       <Route path="/register" component={ Register } />
       <Route path="/login" component={ Login } />
+      <Route path="/adminitrator" component={ Admin } />
     </Switch>
 
   );
