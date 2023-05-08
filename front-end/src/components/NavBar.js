@@ -39,7 +39,7 @@ export default function NavBar() {
           href="#home"
           data-testid={ `${customerProducts}__${dataTestid.orders}` }
         >
-          MEUS PEDIDOS
+          {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

@@ -1,7 +1,7 @@
 const { User } = require('../database/models/index');
 const passwordHash = require('../utils/passwordHash');
 
-const createUser = async (user) => {
+const createAdmin = async (user) => {
   const { name, email, password, role } = user;
   const existEmail = await User.findOne({ where: { email } });
 
@@ -9,13 +9,11 @@ const createUser = async (user) => {
 
   const senhaHash = passwordHash(password);
 
-  const result = await User.create({
-    name,
-    email,
-    password: senhaHash,
-    role: !role ? 'customer' : role,
-  });
+  const result = await User.create({ name, email, password: senhaHash, role });
+
   return { id: result.null, name: result.name, email: result.email, role: result.role };
 };
 
-module.exports = { createUser };
+module.exports = {
+  createAdmin,
+};

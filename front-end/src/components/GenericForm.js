@@ -68,7 +68,7 @@ export default function GenericForm() {
       return history.push('/adminitrator');
     }
     if (responseUser.role === 'seller') {
-      return history.push('/seller');
+      return history.push('/seller/orders');
     }
     if (responseUser.role === 'customer') {
       return history.push('/customer/products');

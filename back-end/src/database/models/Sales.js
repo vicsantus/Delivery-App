@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: { name: 'sellerId', field: 'seller_id' },
       as: 'saleSellerId',
     });
+    Sales.hasOne(models.SalesProducts, {
+      foreignKey: { name: 'saleId', field: 'sale_id' },
+      as: 'salesPId', // sales: sales e salesProducts | p: Products | Id: id
+    });
   };
 
   return Sales;
