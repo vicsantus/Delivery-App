@@ -30,7 +30,7 @@ const getAll = async () => {
   const result = await Sales.findAll({
     include: [
       { model: SalesProducts,
-        as: 'SaleProductsSaleId',
+        as: 'salesPId',
       },
     ],
   });
