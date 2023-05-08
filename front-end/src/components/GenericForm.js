@@ -1,7 +1,8 @@
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../styles/GenericFormStyles.css';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function GenericForm() {
   const history = useHistory();
@@ -21,6 +22,7 @@ export default function GenericForm() {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
+  const { setDataUser } = useContext(DeliveryContext);
 
   const dataTestid = {
     name: 'input-name',
@@ -60,6 +62,7 @@ export default function GenericForm() {
 
   async function verifyLogin() {
     const responseUser = await requestLogin();
+    setDataUser(responseUser);
     if (responseUser.menssagem) {
       setHiddenMessage(true);
     }
