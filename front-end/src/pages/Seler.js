@@ -22,7 +22,9 @@ export default function Seler() {
     });
     const response = await request.text();
     const json = response === '' ? {} : JSON.parse(response);
+    console.log(json);
     const check = checkSellerSales(json);
+    console.log(check);
     setSales(check);
   }
 
