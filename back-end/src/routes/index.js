@@ -1,14 +1,18 @@
 const express = require('express');
-const { getByUser } = require('../controllers/loginController');
-const { createUser } = require('../controllers/registerController');
-const { getAllProducts } = require('../controllers/productsController');
-const { createSales } = require('../controllers/salesController');
+const { loginController, 
+  registerController, 
+  productsController, 
+  salesController, 
+  adminController } = require('../controllers');
+const { verifyToken } = require('../middleware/Auth');
 
 const router = express.Router();
 
-router.get('/products', getAllProducts);
-router.post('/login', getByUser);
-router.post('/register', createUser);
-router.post('/sales', createSales); // requisito 20
+router.get('/products', productsController.getAllProducts);
+router.get('/sales', salesController.getAll);
+router.post('/login', loginController.getByUser);
+router.post('/register', registerController.createUser);
+router.post('/sales', salesController.createSales); // requisito 20
+router.post('/admin', verifyToken, adminController.createAdmin); // requisito 38
 
 module.exports = router;

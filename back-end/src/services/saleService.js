@@ -26,4 +26,15 @@ const createSales = async (saleBody) => {
   }
 };
 
-module.exports = { createSales };
+const getAll = async () => {
+  const result = await Sales.findAll({
+    include: [
+      { model: SalesProducts,
+        as: 'salesPId',
+      },
+    ],
+  });
+  return result;
+};
+
+module.exports = { createSales, getAll };
