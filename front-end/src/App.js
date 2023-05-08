@@ -15,10 +15,15 @@ function App() {
 
   return (
     <Switch>
+      <Route
+        exact
+        path="/customer/products"
+        component={ Client }
+      />
+      <Route exact path="/register" component={ Register } />
+      <Route exact path="/login" component={ Login } />
       <Route path="/seller/orders" component={ Seler } />
       <Route path="/client" component={ Client } />
-      <Route path="/register" component={ Register } />
-      <Route path="/login" component={ Login } />
     </Switch>
 
   );

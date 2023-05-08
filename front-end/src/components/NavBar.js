@@ -1,27 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import DeliveryContext from '../context/DeliveryContext';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
 export default function NavBar() {
   const history = useHistory();
-  const { location: { pathname } } = history;
-  const checkPath = pathname === '/client';
-  const { dataUser } = useContext(DeliveryContext);
+  // const { location: { pathname } } = history;
+  const [user, setUser] = useState();
+  const customerProducts = 'customer_products';
+  const dataTestid = {
+    products: 'element-navbar-link-products',
+    orders: 'element-navbar-link-orders',
+    fullName: 'element-navbar-user-full-name',
+    logout: 'element-navbar-link-logout',
+  };
+
+  useEffect(() => {
+    const objUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(objUser);
+    setUser(parsedUser);
+  }, []);
+
+  function logout() {
+    localStorage.removeItem('user');
+    history.push('/login');
+  }
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
       <Container>
-        {checkPath && (
-          <Navbar.Brand
-            href="#home"
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            PRODUTOS
-          </Navbar.Brand>)}
+
         <Navbar.Brand
           href="#home"
-          data-testid="customer_products__element-navbar-link-orders"
+          data-testid={ `${customerProducts}__${dataTestid.products}` }
+        >
+          PRODUTOS
+        </Navbar.Brand>
+        <Navbar.Brand
+          href="#home"
+          data-testid={ `${customerProducts}__${dataTestid.orders}` }
         >
           {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}
         </Navbar.Brand>
@@ -30,27 +46,17 @@ export default function NavBar() {
           <Nav className="me-auto" />
           <Nav>
             <Nav.Link
-              data-testid="customer_products__element-navbar-user-full-name"
+              data-testid={ `${customerProducts}__${dataTestid.fullName}` }
             >
-              {dataUser?.name}
+              {user?.name}
             </Nav.Link>
-            {/* {
-              arrayDataUser?.map((user) => (
-                <Nav.Link
-                  key={ user.id }
-                  data-testid="customer_products__element-navbar-user-full-name"
-                >
-                  {user.name}
-                </Nav.Link>
-              ))
-            } */}
-            <Nav.Link
+            <Button
               eventKey={ 2 }
-              data-testid="customer_products__element-navbar-link-logout"
-              href="/login"
+              data-testid={ `${customerProducts}__${dataTestid.logout}` }
+              onClick={ () => logout() }
             >
               Sair
-            </Nav.Link>
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
