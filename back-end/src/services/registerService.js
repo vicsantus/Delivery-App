@@ -1,5 +1,5 @@
-const crypto = require('crypto');
 const { User } = require('../database/models/index');
+const passwordHash = require('../utils/passwordHash');
 
 const createUser = async (user) => {
   const { name, email, password, role } = user;
@@ -7,7 +7,7 @@ const createUser = async (user) => {
 
   if (existEmail) throw new Error('Email already registered');
 
-  const senhaHash = crypto.createHash('md5').update(password).digest('hex');
+  const senhaHash = passwordHash(password);
 
   const result = await User.create({
     name,

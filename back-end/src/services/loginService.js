@@ -1,9 +1,9 @@
-const crypto = require('crypto');
 const { User } = require('../database/models/index');
+const passwordHash = require('../utils/passwordHash');
 
 const getByUser = async (email, password) => {
   const result = await User.findOne({ where: { email } });
-  const senhaHash = crypto.createHash('md5').update(password).digest('hex');
+  const senhaHash = passwordHash(password);
 
   // console.log(password);
   // console.log(result.password);
