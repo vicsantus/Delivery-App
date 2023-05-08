@@ -14,9 +14,13 @@ function App() {
 
   return (
     <Switch>
-      <Route path="/client" component={ Client } />
-      <Route path="/register" component={ Register } />
-      <Route path="/login" component={ Login } />
+      <Route
+        exact
+        path="/customer/products"
+        component={ Client }
+      />
+      <Route exact path="/register" component={ Register } />
+      <Route exact path="/login" component={ Login } />
     </Switch>
 
   );
