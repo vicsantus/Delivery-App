@@ -8,7 +8,7 @@ export default function Admin() {
     email: '',
     password: '',
     name: '',
-    role: 'Administrador',
+    role: '',
   });
 
   function handleChange({ target }) {
@@ -79,6 +79,7 @@ export default function Admin() {
         <Form.Select
           name="role"
           value={ user.role }
+          onChange={ (e) => handleChange(e) }
         >
           <option value="Administrador">Administrador</option>
           <option value="Seller">Seller</option>
