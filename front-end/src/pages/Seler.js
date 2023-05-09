@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DeliveryContext from '../context/DeliveryContext';
 
 export default function Seler() {
-  const { dataUser } = useContext(DeliveryContext);
+  const history = useHistory();
+  const { dataUser, setOrderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
   const headers = {
     Accept: 'application/json',
@@ -22,9 +24,7 @@ export default function Seler() {
     });
     const response = await request.text();
     const json = response === '' ? {} : JSON.parse(response);
-    console.log(json);
     const check = checkSellerSales(json);
-    console.log(check);
     setSales(check);
   }
 
@@ -44,12 +44,19 @@ export default function Seler() {
     return `${dd}/${mm}/${yyyy}`;
   }
 
+  function goToOrderDetails(currentSale) {
+    setOrderDetails(currentSale);
+    history.push(`/seller/orders/${currentSale.id}`);
+  }
+
   return (
     <>
       <NavBar />
       <main>
         { sales.map((sale) => (
-          <section
+          <button
+            type="button"
+            onClick={ () => goToOrderDetails(sale) }
             style={ { border: '1px solid black', margin: '5px' } } // temporario
             key={ sale.id }
           >
@@ -83,7 +90,7 @@ export default function Seler() {
               {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
             </p>
             <div />
-          </section>
+          </button>
         ))}
       </main>
     </>
