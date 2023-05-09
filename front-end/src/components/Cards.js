@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 export default function Cards() {
+  const history = useHistory();
   const [data, setData] = useState([]);
+  const [isValueTotal, setIsValueTotal] = useState(true);
   const [quantities, setQuantities] = useState({});
   const [cartTotal, setCartTotal] = useState(0);
   const customerProducts = 'customer_products';
@@ -16,6 +19,8 @@ export default function Cards() {
     buttonCart: 'button-cart',
     buttonValue: 'checkout-bottom-value',
   };
+
+  const valueTotal = cartTotal.toFixed(2).toString().replace('.', ',');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +44,7 @@ export default function Cards() {
         const quantity = quantities[p.id] || 0;
         total += p.price * quantity;
       });
-
+      if (total > 0) setIsValueTotal(false);
       setCartTotal(total);
     };
 
@@ -93,9 +98,7 @@ export default function Cards() {
               <Card.Text
                 data-testid={ `${customerProducts}__${dataTestid.price}-${p.id}` }
               >
-                {p.price}
-                {' '}
-                R$
+                {p.price.toString().replace('.', ',')}
               </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -108,15 +111,14 @@ export default function Cards() {
               <Form>
                 <Form.Control
                   data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
-                  value={ quantities[p.id] || '' }
+                  value={ quantities[p.id] === undefined ? 0 : quantities[p.id] }
                   onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
-
                 />
               </Form>
 
               <Button
                 onClick={ () => handleAdd(p.id) }
-                data-testid={ `${customerProducts}__${dataTestid.addItem}-${p.id}` }
+                data-testid={ `customer_products__button-card-add-item-${p.id}` }
               >
                 +
               </Button>
@@ -125,14 +127,16 @@ export default function Cards() {
         </Col>
       ))}
       <Button
+        onClick={ () => history.push('/customer/checkout') }
         data-testid={ `${customerProducts}__${dataTestid.buttonCart}` }
+        disabled={ isValueTotal }
       >
         Ver Carriho
         {' '}
         <span
           data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }
         >
-          {cartTotal}
+          {valueTotal}
         </span>
 
       </Button>
