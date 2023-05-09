@@ -39,42 +39,72 @@ export default function Cards() {
   useEffect(() => {
     const calculateCartTotal = () => {
       let total = 0;
-
-      data.forEach((p) => {
-        const quantity = quantities[p.id] || 0;
-        total += p.price * quantity;
+      Object.values(quantities).forEach((product) => {
+        total += product.totalValue;
       });
       if (total > 0) setIsValueTotal(false);
       setCartTotal(total);
     };
+    const dataCar = JSON.stringify(quantities);
+    localStorage.setItem('car', dataCar);
+    localStorage.setItem('total', valueTotal);
 
     calculateCartTotal();
-  }, [quantities, data]);
+  }, [quantities, data, valueTotal]);
 
   const handleQuantityChange = (productId, quantity) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: quantity,
-    }));
+    setQuantities((prevQuantities) => {
+      const product = data.find((p) => p.id === productId);
+      const total = parseInt(quantity, 10) * product.price;
+      return {
+        ...prevQuantities,
+        [productId]: {
+          ...prevQuantities[productId],
+          quantity: parseInt(quantity, 10),
+          totalValue: total,
+        },
+      };
+    });
   };
 
   const handleAdd = (productId) => {
-    setQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
-    }));
+    const product = data.find((p) => p.id === productId);
+    setQuantities((prevQuantities) => {
+      const prevQuantity = prevQuantities[productId]?.quantity || 0;
+      const quantity = prevQuantity + 1;
+      const total = quantity * product.price;
+      return {
+        ...prevQuantities,
+        [productId]: {
+          id: productId,
+          quantity,
+          unitValue: product.price,
+          totalValue: total,
+          name: product.name,
+        },
+      };
+    });
   };
 
   const handleRemove = (productId) => {
     setQuantities((prevQuantities) => {
-      const quantity = prevQuantities[productId] || 0;
-      if (quantity > 0) {
+      const prevQuantity = prevQuantities[productId]?.quantity || 0;
+      if (prevQuantity > 0) {
+        const quantity = prevQuantity - 1;
+        const product = data.find((p) => p.id === productId);
+        const total = quantity * product.price;
         return {
           ...prevQuantities,
-          [productId]: quantity - 1,
+          [productId]: {
+            ...prevQuantities[productId],
+            quantity,
+            totalValue: total,
+          },
         };
       }
-      return prevQuantities;
+      const updatedQuantities = { ...prevQuantities };
+      delete updatedQuantities[productId];
+      return updatedQuantities;
     });
   };
 
@@ -111,7 +141,8 @@ export default function Cards() {
               <Form>
                 <Form.Control
                   data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
-                  value={ quantities[p.id] === undefined ? 0 : quantities[p.id] }
+                  value={ quantities[p.id]?.quantity === undefined ? 0
+                    : quantities[p.id]?.quantity }
                   onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
                 />
               </Form>
