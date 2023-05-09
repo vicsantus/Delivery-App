@@ -35,8 +35,7 @@ export default function Checkout() {
                 `customer_checkout__element-order-table-item-number-${index}`
               }
             >
-              {index}
-
+              {index + 1}
             </ListGroup.Item>
             <ListGroup.Item
               data-testid={ `customer_checkout__element-order-table-name-${index}` }
@@ -47,23 +46,17 @@ export default function Checkout() {
             <ListGroup.Item
               data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
             >
-              Quantity:
-              {' '}
               {item.quantity}
             </ListGroup.Item>
             <ListGroup.Item
               data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
             >
-              Unit Value:
-              {' '}
-              {item.unitValue}
+              {item.unitValue.toString().replace('.', ',')}
             </ListGroup.Item>
             <ListGroup.Item
               data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
             >
-              Total Value:
-              {' '}
-              {item.totalValue.toFixed(2)}
+              {item.totalValue.toFixed(2).toString().replace('.', ',')}
             </ListGroup.Item>
             <Button
               data-testid={ `customer_checkout__element-order-table-remove-${index}` }
