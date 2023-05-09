@@ -37,4 +37,20 @@ const getAll = async () => {
   return result;
 };
 
-module.exports = { createSales, getAll };
+const getById = async (id) => {
+  const result = await Sales.findByPk(id);
+  return result;
+};
+
+const updateState = async (body, id) => {
+  const { status } = body;
+  const checkSale = await getById(id);
+  if (!checkSale) throw new Error('Non-existent id'); 
+  await Sales.update(
+    { status },
+    { where: { id } },
+  );
+  return 'Sucess';
+};
+
+module.exports = { updateState, createSales, getAll };
