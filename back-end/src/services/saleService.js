@@ -46,6 +46,12 @@ const getById = async (id) => {
   return result;
 };
 
+const getbyUserId = async (userId) => {
+  const result = await Sales.findAll({ where: { userId } });
+  if (result === []) throw new Error('User without orders');
+  return result; 
+};
+
 const updateState = async (body, id) => {
   const { status } = body;
   const checkSale = await getById(id);
@@ -68,4 +74,4 @@ const updateState = async (body, id) => {
   return allSales;
 };
 
-module.exports = { updateState, createSales, getAll };
+module.exports = { updateState, createSales, getbyUserId, getAll };
