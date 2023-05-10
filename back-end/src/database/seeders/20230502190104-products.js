@@ -67,6 +67,12 @@ module.exports = {
         price: 3.49,
         url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg',
       },
+      {
+        id: 12,
+        name: 'Chacaça 51',
+        price: 15.49,
+        url_image: 'http://localhost:3001/images/51-Garrafa-2012.jpg',
+      },
     ], {});
   },
   down: async (queryInterface) => {
