@@ -40,7 +40,7 @@ services:
     container_name: database
     platform: linux/x86_64
     ports:
-      - 3307:3306
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
     restart: 'always'
