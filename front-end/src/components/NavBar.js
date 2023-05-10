@@ -38,7 +38,7 @@ export default function NavBar() {
           PRODUTOS
         </Navbar.Brand>
         <Navbar.Brand
-          href="#home"
+          href="/customer/orders"
           data-testid={ `${customerProducts}__${dataTestid.orders}` }
         >
           {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}
