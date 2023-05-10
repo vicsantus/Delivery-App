@@ -1,41 +1,43 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DeliveryContext from '../context/DeliveryContext';
 
 export default function OrderDetails() {
-  const history = useHistory();
-  const { location: { pathname } } = history;
-  const { dataUser } = useContext(DeliveryContext);
+  // const history = useHistory();
+  // const { location: { pathname } } = history;
+  const { orderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
-  // const headers = {
-  //   Accept: 'application/json',
-  //   'Content-Type': 'application/json',
-  // };
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
-  function checkSellerSales(dbSales) {
-    return dbSales.filter((sale) => sale.sellerId === dataUser.id);
-  }
+  // async function requestSales() {
+  //   setSales(orderDetails.salesPId);
+  // }
 
-  async function requestSales() {
-    // const request = await fetch('http://localhost:3001/sales', {
-    //   method: 'GET',
-    //   mode: 'cors',
-    //   headers,
-    // });
-    console.log(dataUser.orderDetails);
-    const response = dataUser.sales.find((order) => order.id === pathname.split('/')[3]);
+  async function makingOrder({ target }) {
+    const data = {
+      status: target.name,
+    };
+    const request = await fetch(`http://localhost:3001/sales/${orderDetails.id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify(data),
+    });
+    const response = await request.text();
     console.log(response);
-    const json = response === '' ? {} : JSON.parse(response);
-    console.log(json);
-    const check = checkSellerSales(json);
-    console.log(check);
-    setSales(check);
+    const json = response === '' ? {} : JSON.parse(response); // Consertar retorno mais tarde
+    // const userString = JSON.stringify(json);
+    // localStorage.setItem('user', userString);
+    return json;
   }
 
   useEffect(() => {
-    requestSales();
-  }, []);
+    setSales(orderDetails.salesPId);
+  }, [orderDetails]);
 
   function formattedDate(today) {
     const todayFormatted = today.split('T');
@@ -53,43 +55,93 @@ export default function OrderDetails() {
     <>
       <NavBar />
       <main>
-        {sales.map((sale) => (
-          <section
-            style={ { border: '1px solid black', margin: '5px' } } // temporario
-            key={ sale.id }
+        <div>
+          <h3 data-testid="seller_order_details__element-order-details-label-order-id">
+            Pedido
+            {' '}
+            {orderDetails.id}
+          </h3>
+          <h3
+            data-testid="seller_order_details__element-order-details-label-order-date"
           >
-            <div>
-              <p
-                data-testid={ `seller_orders__element-delivery-order-id-${sale.id}` }
+            {formattedDate(orderDetails.saleDate)}
+          </h3>
+          <h3
+            data-testid="seller_order_details__
+            element-order-details-label-delivery-status"
+          >
+            {orderDetails.status}
+          </h3>
+          <button
+            data-testid="seller_order_details__button-preparing-check"
+            type="button"
+            onClick={ makingOrder }
+            name="Preparando"
+          >
+            PREPARAR PEDIDO
+          </button>
+          <button
+            data-testid="seller_order_details__button-dispatch-check"
+            type="button"
+            onClick={ makingOrder }
+            name="Em Trânsito"
+          >
+            SAIU PARA ENTREGA
+          </button>
+        </div>
+        <table>
+          <thead>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Sub-total</th>
+          </thead>
+          <tbody name="tbody">
+            {sales.map((sale, idx) => (
+              <tr
+                key={ idx + 1 }
               >
-                {`Pedido ${sale.id}`}
-              </p>
-            </div>
-            <div
-              data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
-            >
-              {sale.status}
-            </div>
-            <div>
-              <p
-                data-testid={ `seller_orders__element-card-price-${sale.id}` }
-              >
-                {`R$${sale.totalPrice}`}
-              </p>
-              <p
-                data-testid={ `seller_orders__element-order-date-${sale.id}` }
-              >
-                {formattedDate(sale.saleDate)}
-              </p>
-            </div>
-            <p
-              data-testid={ `seller_orders__element-card-address-${sale.id}` }
-            >
-              {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
-            </p>
-            <div />
-          </section>
-        ))}
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-item-number-${
+                      idx + 1}`
+                  }
+                >
+                  {idx + 1}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-name-${idx + 1}`
+                  }
+                >
+                  {sale.SaleProductsProductId.name}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-quantity-${idx + 1}`
+                  }
+                >
+                  {`${sale.quantity}`}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-unit-price-${idx}`
+                  }
+                >
+                  {`R$ ${sale.SaleProductsProductId.price}`}
+                </td>
+                <td
+                  data-testid={
+                    `seller_order_details__element-order-table-unit-price-${idx}`
+                  }
+                >
+                  {`R$ ${(sale.SaleProductsProductId.price * sale.quantity).toFixed(2)}`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </main>
     </>
   );
