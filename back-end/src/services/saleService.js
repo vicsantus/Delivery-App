@@ -57,7 +57,7 @@ const getAll = async () => {
 
 const getbyUserId = async (userId) => {
   const result = await Sales.findAll({ where: { userId } });
-  if (result === []) throw new Error('User without orders');
+  if (result.length === 0) throw new Error('User without orders');
   return result; 
 };
 
