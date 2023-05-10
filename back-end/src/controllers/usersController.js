@@ -19,4 +19,14 @@ const getAll = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, getAll };
+const deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await userService.deleteUser(id);
+    return res.sendStatus(204);
+  } catch (error) {
+    next({ ...error, message: error.message, status: 404 });
+  }
+};
+
+module.exports = { getUsers, getAll, deleteUser };
