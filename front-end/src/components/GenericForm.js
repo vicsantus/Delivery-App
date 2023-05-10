@@ -115,6 +115,8 @@ export default function GenericForm() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
+    const isUser = JSON.stringify(response);
+    localStorage.setItem('user', isUser);
     if (response.message === 'Email already registered') {
       return setHiddenMessage(true);
     }

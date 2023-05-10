@@ -1,15 +1,63 @@
-import { useContext } from 'react';
-import DeliveryContext from '../context/DeliveryContext';
+import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 export default function MyOrders() {
-  const { finalizeOrder } = useContext(DeliveryContext);
-  console.log(finalizeOrder);
+  const [orders, setOrders] = useState([]);
+  const history = useHistory();
+
+  function formattedDate(today) {
+    const todayFormatted = today.split('T');
+    const newDate = new Date(todayFormatted[0]);
+    const TEM = 10;
+    const yyyy = newDate.getFullYear();
+    let mm = newDate.getMonth() + 1;
+    let dd = newDate.getDate();
+    if (dd < TEM) dd = `0${dd}`;
+    if (mm < TEM) mm = `0${mm}`;
+    return `${dd}/${mm}/${yyyy}`;
+  }
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    const newUser = JSON.parse(user);
+
+    async function getOrders() {
+      const request = await fetch(`http://localhost:3001/sales/orderUser/${newUser.id}`);
+      const response = await request.json();
+      setOrders(response);
+      console.log(response);
+      console.log(dataUser);
+    }
+
+    getOrders();
+  });
+
   return (
     <div>
-      my orders
-      {/* {finalizeOrder.map((order) => (
-        <p key={ order.id }>{order.id}</p>
-      ))} */}
+      {orders?.map((order) => (
+        <Button
+          onClick={ () => history.push(`/customer/orders/${order.id}`) }
+          key={ order.id }
+        >
+          <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
+            {order.id}
+
+          </p>
+          <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
+            {order.status}
+
+          </p>
+          <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
+            {formattedDate(order.saleDate)}
+
+          </p>
+          <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
+            {order.totalPrice.toString().replace('.', ',')}
+
+          </p>
+        </Button>
+      ))}
     </div>
 
   );
