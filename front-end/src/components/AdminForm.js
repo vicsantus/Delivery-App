@@ -1,15 +1,21 @@
 import { Form, Button } from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function AdminForm() {
   const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
   const [disabled, setDisabled] = useState(true);
+  const { dataUser } = useContext(DeliveryContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
     name: '',
     role: '',
   });
+  const headersPattern = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
   function handleChange({ target }) {
     const { name, value } = target;
@@ -36,6 +42,26 @@ export default function AdminForm() {
       setRegisterIsDisabled(false);
     }
   }, [user.email, user.password, user.name, disabled]);
+
+  async function buttonRegister() {
+    const { token } = dataUser;
+    console.log(token);
+    const data = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+    };
+    const headers = { Authorization: token, ...headersPattern };
+    const request = await fetch('http://localhost:3001/admin', {
+      method: 'POST',
+      mode: 'cors',
+      headers,
+      body: JSON.stringify(data),
+    });
+    const response = await request.json();
+    console.log(response, 'oi');
+  }
 
   return (
     <Form>
