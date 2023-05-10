@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function Table({ users }) {
-  // async function deleteUser(id) {
-
-  // }
-
+export default function Table({ users, deleteUser }) {
   return (
     <table>
       <thead>
