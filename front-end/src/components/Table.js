@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 
 export default function Table({ users }) {
+  // async function deleteUser(id) {
+
+  // }
+
   return (
     <table>
       <thead>
@@ -41,6 +45,7 @@ export default function Table({ users }) {
               <button
                 type="button"
                 data-testid={ `admin_manage__element-user-table-remove-${index}` }
+                onClick={ () => deleteUser(person.id) }
               >
                 Excluir
               </button>
