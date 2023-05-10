@@ -5,25 +5,39 @@ const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config[env]);
 
+const getById = async (id) => {
+  const result = await Sales.findAll(
+    {
+    where: { id },
+    include: [
+      { model: SalesProducts,
+        as: 'salesPId',
+      },
+    ],
+  },
+  ); 
+  return result;
+};
+
 const createSales = async (saleBody) => {
+  const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = saleBody;
+  const newBody = { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber };
   const t = await sequelize.transaction();
   try {
-    const sale = await Sales.create({
-      ...saleBody,
-      saleDate: Date.now(),
+    const sale = await Sales.create({ ...newBody,
+  saleDate: Date.now(),
       status: 'Pendente',
     }, { transaction: t });
-    await SalesProducts.create({
-      saleId: sale.id,
-      quantity: saleBody.quantity,
-      productId: saleBody.productId,
-    }, { transaction: t });
+    await Promise.all(products.map((product) => SalesProducts.create({ saleId: sale.id,
+        quantity: product.quantity,
+        productId: product.productId,
+      }, { transaction: t })));
     await t.commit();
-    return sale;
+    return getById(sale.id);
   } catch (e) {
     await t.rollback();
-    throw e;
-  }
+    throw e; 
+}
 };
 
 const getAll = async () => {
@@ -41,11 +55,6 @@ const getAll = async () => {
   return result;
 };
 
-const getById = async (id) => {
-  const result = await Sales.findByPk(id);
-  return result;
-};
-
 const getbyUserId = async (userId) => {
   const result = await Sales.findAll({ where: { userId } });
   if (result === []) throw new Error('User without orders');
@@ -55,7 +64,7 @@ const getbyUserId = async (userId) => {
 const updateState = async (body, id) => {
   const { status } = body;
   const checkSale = await getById(id);
-  if (!checkSale) throw new Error('Non-existent id'); 
+  if (checkSale.length === 0) throw new Error('Non-existent id'); 
   await Sales.update(
     { status },
     { where: { id } },
