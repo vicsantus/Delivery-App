@@ -23,19 +23,10 @@ export default function Admin() {
     getUser();
   }, []);
 
-  const deleteUser = async (id) => {
-    setUsers((prevState) => prevState.filter((user) => user.id !== id));
-    await fetch(`http://localhost:3001/users/${id}`, {
-      method: 'DELETE',
-      mode: 'cors',
-      headers,
-    });
-  };
-
   return (
     <div>
       <AdminForm />
-      <Table users={ users } delete={ deleteUser } />
+      <Table users={ users } setUsers={ setUsers } />
     </div>
   );
 }

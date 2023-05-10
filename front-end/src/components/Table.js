@@ -1,6 +1,20 @@
 import PropTypes from 'prop-types';
 
-export default function Table({ users, deleteUser }) {
+export default function Table({ users, setUsers }) {
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  async function deleteUser(id) {
+    setUsers((prevState) => prevState.filter((user) => user.id !== id));
+    await fetch(`http://localhost:3001/users/${id}`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers,
+    });
+  }
+
   return (
     <table>
       <thead>
