@@ -1,18 +1,22 @@
 const express = require('express');
-const { loginController, 
-  registerController, 
-  productsController, 
-  salesController, 
-  adminController } = require('../controllers');
-const { verifyToken } = require('../middleware/Auth');
+const adminRuter = require('./admin');
+const imageRouter = require('./image');
+const loginRouter = require('./login');
+const productsRouter = require('./products');
+const registerRouter = require('./register');
+const salesRouter = require('./sales');
+const usersRouter = require('./users');
+const errorMiddleware = require('../middleware/ErrorMiddleware');
 
-const router = express.Router();
+const router = express();
 
-router.get('/products', productsController.getAllProducts);
-router.get('/sales', salesController.getAll);
-router.post('/login', loginController.getByUser);
-router.post('/register', registerController.createUser);
-router.post('/sales', salesController.createSales); // requisito 20
-router.post('/admin', verifyToken, adminController.createAdmin); // requisito 38
+router.use('/admin', adminRuter);
+router.use('/images', imageRouter);
+router.use('/login', loginRouter);
+router.use('/products', productsRouter);
+router.use('/register', registerRouter);
+router.use('/sales', salesRouter);
+router.use('/users', usersRouter);
+router.use(errorMiddleware);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT_SECRET || 'segredinho';
+const fs = require('fs');
+
+const secret = fs.readFileSync('jwt.evaluation.key', 'utf8');
 
 const createToken = (data) => {
   const JWT_CONFIG = {

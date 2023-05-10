@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV || 'development';
 const Sequelize = require('sequelize');
-const { Sales, SalesProducts } = require('../database/models/index');
+const { Sales, SalesProducts, Product } = require('../database/models/index');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config[env]);
@@ -31,10 +31,41 @@ const getAll = async () => {
     include: [
       { model: SalesProducts,
         as: 'salesPId',
+        include: [{
+          model: Product,
+          as: 'SaleProductsProductId',
+        }],
       },
     ],
   });
   return result;
 };
 
-module.exports = { createSales, getAll };
+const getById = async (id) => {
+  const result = await Sales.findByPk(id);
+  return result;
+};
+
+const updateState = async (body, id) => {
+  const { status } = body;
+  const checkSale = await getById(id);
+  if (!checkSale) throw new Error('Non-existent id'); 
+  await Sales.update(
+    { status },
+    { where: { id } },
+  );
+
+  const allSales = await Sales.findByPk(id, { include: [
+    { model: SalesProducts,
+      as: 'salesPId',
+      include: [{
+        model: Product,
+        as: 'SaleProductsProductId',
+      }],
+    },
+  ] });
+  
+  return allSales;
+};
+
+module.exports = { updateState, createSales, getAll };

@@ -55,12 +55,13 @@ export default function GenericForm() {
 
     const response = await request.text();
     const json = response === '' ? {} : JSON.parse(response);
+    const userString = JSON.stringify(json);
+    localStorage.setItem('user', userString);
     return json;
   }
 
   async function verifyLogin() {
     const responseUser = await requestLogin();
-    console.log(responseUser);
     setDataUser(responseUser);
     if (responseUser.menssagem) {
       setHiddenMessage(true);
