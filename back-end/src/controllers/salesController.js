@@ -32,7 +32,7 @@ const updateState = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await saleService.updateState(req.body, id);
-    return res.status(201).json({ message: result }); 
+    return res.status(201).json(result);
   } catch (error) {
     next({ ...error, message: error.message, status: 404 });
   }

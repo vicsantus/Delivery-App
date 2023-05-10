@@ -54,7 +54,18 @@ const updateState = async (body, id) => {
     { status },
     { where: { id } },
   );
-  return 'Sucess';
+
+  const allSales = await Sales.findByPk(id, { include: [
+    { model: SalesProducts,
+      as: 'salesPId',
+      include: [{
+        model: Product,
+        as: 'SaleProductsProductId',
+      }],
+    },
+  ] });
+  
+  return allSales;
 };
 
 module.exports = { updateState, createSales, getAll };

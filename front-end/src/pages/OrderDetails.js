@@ -6,16 +6,17 @@ import DeliveryContext from '../context/DeliveryContext';
 export default function OrderDetails() {
   // const history = useHistory();
   // const { location: { pathname } } = history;
-  const { orderDetails } = useContext(DeliveryContext);
+  const { orderDetails, setOrderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
   const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
-
-  // async function requestSales() {
-  //   setSales(orderDetails.salesPId);
-  // }
+  const totalPriceOrder = sales?.reduce((acc, cur) => {
+    const newPrice = Number(cur.SaleProductsProductId.price
+      * cur.quantity);
+    return acc + newPrice;
+  }, 0);
 
   async function makingOrder({ target }) {
     const data = {
@@ -27,12 +28,8 @@ export default function OrderDetails() {
       headers,
       body: JSON.stringify(data),
     });
-    const response = await request.text();
-    console.log(response);
-    const json = response === '' ? {} : JSON.parse(response); // Consertar retorno mais tarde
-    // const userString = JSON.stringify(json);
-    // localStorage.setItem('user', userString);
-    return json;
+    const response = await request.json();
+    setOrderDetails(response);
   }
 
   useEffect(() => {
@@ -98,10 +95,8 @@ export default function OrderDetails() {
             <th>Sub-total</th>
           </thead>
           <tbody name="tbody">
-            {sales.map((sale, idx) => (
-              <tr
-                key={ idx + 1 }
-              >
+            {sales?.map((sale, idx) => (
+              <tr key={ idx + 1 }>
                 <td
                   data-testid={
                     `seller_order_details__element-order-table-item-number-${
@@ -142,6 +137,9 @@ export default function OrderDetails() {
             ))}
           </tbody>
         </table>
+        <h2 data-testid="seller_order_details__element-order-total-price">
+          {`R$ ${totalPriceOrder.toFixed(2)}`}
+        </h2>
       </main>
     </>
   );
