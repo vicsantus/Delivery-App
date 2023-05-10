@@ -10,4 +10,13 @@ const getUsers = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll: getUsers };
+const getAll = async (req, res, next) => {
+  try {
+    const allUsersByRole = await userService.getAll();
+    return res.status(200).json(allUsersByRole);
+  } catch (error) {
+    next({ ...error, message: error.message, status: 404 });
+  }
+};
+
+module.exports = { getUsers, getAll };

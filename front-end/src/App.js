@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import OrderDetails from './pages/OrderDetails';
 import Register from './pages/Register';
 import Seler from './pages/Seler';
+import Admin from './pages/Admin';
 
 function App() {
   const history = useHistory();
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/seller/orders/:id_do_produto" component={ OrderDetails } />
       <Route path="/seller/orders" component={ Seler } />
       <Route path="/customer/orders/:id" />
+      <Route path="/adminitrator" component={ Admin } />
     </Switch>
 
   );

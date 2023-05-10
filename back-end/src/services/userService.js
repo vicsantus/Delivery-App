@@ -6,5 +6,9 @@ const getUsers = async (role) => {
   if (!userByRole) throw new Error('User not existing.');
   return userByRole;
 };
+const getAll = async () => {
+  const allUsers = await User.findAll();
+  return allUsers;
+};
 
-module.exports = { getUsers };
+module.exports = { getUsers, getAll };
