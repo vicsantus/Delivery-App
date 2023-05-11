@@ -6,11 +6,12 @@ export default function AdminForm() {
   const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const { dataUser } = useContext(DeliveryContext);
+  const [userFound, setUserFound] = useState(false);
   const [user, setUser] = useState({
     email: '',
     password: '',
     name: '',
-    role: '',
+    role: 'Customer',
   });
   const headersPattern = {
     Accept: 'application/json',
@@ -60,72 +61,84 @@ export default function AdminForm() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log(response, 'oi');
+    if (response.message === 'Email already registered') return setUserFound(true);
   }
 
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Nome</Form.Label>
-        <Form.Control
-          data-testid="admin_manage__input-name"
-          type="text"
-          name="name"
-          onChange={ (e) => handleChange(e) }
-          placeholder="Seu nome"
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          data-testid="admin_manage__input-email"
-          type="email"
-          onChange={ (e) => handleChange(e) }
-          name="email"
-          placeholder="exemplo@exemplo.com"
-        />
-        <Form.Text className="text-muted" />
-      </Form.Group>
+    <div>
 
-      <Form.Group
-        className="mb-3"
-        controlId="formBasicPassword"
-      >
-        <Form.Label>Senha</Form.Label>
-        <Form.Control
-          data-testid="admin_manage__input-password"
-          type="password"
-          name="password"
-          onChange={ (e) => handleChange(e) }
-          placeholder="*******"
-        />
-      </Form.Group>
-      <Form.Group
-        className="mb-3"
-        controlId="formBasicPassword"
-      >
-        <Form.Label>Role</Form.Label>
-        <Form.Select
-          data-testid="admin_manage__select-role"
-          name="role"
-          value={ user.role }
-          onChange={ (e) => handleChange(e) }
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Nome</Form.Label>
+          <Form.Control
+            data-testid="admin_manage__input-name"
+            type="text"
+            name="name"
+            onChange={ (e) => handleChange(e) }
+            placeholder="Seu nome"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            data-testid="admin_manage__input-email"
+            type="email"
+            onChange={ (e) => handleChange(e) }
+            name="email"
+            placeholder="exemplo@exemplo.com"
+          />
+          <Form.Text className="text-muted" />
+        </Form.Group>
+
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicPassword"
         >
-          <option value="Administrador">Administrador</option>
-          <option value="Seller">Seller</option>
-          <option value="Customer">Customer</option>
+          <Form.Label>Senha</Form.Label>
+          <Form.Control
+            data-testid="admin_manage__input-password"
+            type="password"
+            name="password"
+            onChange={ (e) => handleChange(e) }
+            placeholder="*******"
+          />
+        </Form.Group>
+        <Form.Group
+          className="mb-3"
+          controlId="formBasicPassword"
+        >
+          <Form.Label>Role</Form.Label>
+          <Form.Select
+            data-testid="admin_manage__select-role"
+            name="role"
+            value={ user.role }
+            onChange={ (e) => handleChange(e) }
+          >
+            <option value="Administrador">Administrador</option>
+            <option value="Seller">Seller</option>
+            <option value="Customer">Customer</option>
 
-        </Form.Select>
-      </Form.Group>
-      <Button
-        data-testid="admin_manage__button-register"
-        variant="success"
-        type="submit"
-        onClick={ () => buttonRegister() }
-        disabled={ registerIsDisabled }
-      >
-        Cadastrar
-      </Button>
-    </Form>
+          </Form.Select>
+        </Form.Group>
+        <Button
+          data-testid="admin_manage__button-register"
+          variant="success"
+          type="submit"
+          onClick={ () => buttonRegister() }
+          disabled={ registerIsDisabled }
+        >
+          Cadastrar
+        </Button>
+      </Form>
+      {userFound
+      && (
+        <p
+          data-testid="admin_manage__element-invalid-register"
+        >
+          Você já possui cadastro
+
+        </p>)}
+    </div>
+
   );
 }
