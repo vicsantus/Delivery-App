@@ -5,6 +5,8 @@ import DeliveryContext from '../context/DeliveryContext';
 
 export default function Seler() {
   const history = useHistory();
+
+  const sellerOrder = 'seller_orders__element-order-id-';
   const { dataUser, setOrderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
   const headers = {
@@ -38,7 +40,7 @@ export default function Seler() {
     const TEM = 10;
     const yyyy = newDate.getFullYear();
     let mm = newDate.getMonth() + 1;
-    let dd = newDate.getDate();
+    let dd = newDate.getDate() + 1;
     if (dd < TEM) dd = `0${dd}`;
     if (mm < TEM) mm = `0${mm}`;
     return `${dd}/${mm}/${yyyy}`;
@@ -62,9 +64,9 @@ export default function Seler() {
           >
             <div>
               <p
-                data-testid={ `seller_orders__element-delivery-order-id-${sale.id}` }
+                data-testid={ `${sellerOrder}${sale.id}` }
               >
-                {`Pedido ${sale.id}`}
+                {sale.id}
               </p>
             </div>
             <div
@@ -76,7 +78,7 @@ export default function Seler() {
               <p
                 data-testid={ `seller_orders__element-card-price-${sale.id}` }
               >
-                {`R$${sale.totalPrice}`}
+                {sale.totalPrice?.toString().replace('.', ',')}
               </p>
               <p
                 data-testid={ `seller_orders__element-order-date-${sale.id}` }
