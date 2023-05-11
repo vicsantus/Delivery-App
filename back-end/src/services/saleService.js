@@ -30,7 +30,7 @@ const createSales = async (saleBody) => {
     }, { transaction: t });
     await Promise.all(products.map((product) => SalesProducts.create({ saleId: sale.id,
         quantity: product.quantity,
-        productId: product.productId,
+        productId: product.id,
       }, { transaction: t })));
     await t.commit();
     return getById(sale.id);

@@ -21,21 +21,23 @@ export default function MyOrders() {
   useEffect(() => {
     const user = localStorage.getItem('user');
     const newUser = JSON.parse(user);
+    console.log(newUser);
 
     async function getOrders() {
       const request = await fetch(`http://localhost:3001/sales/orderUser/${newUser.id}`);
       const response = await request.json();
-      setOrders(response);
+
+      if (response.message === 'User without orders') return setOrders([]);
       console.log(response);
-      console.log(dataUser);
+      return setOrders(response);
     }
 
     getOrders();
-  });
+  }, []);
 
   return (
     <div>
-      {orders?.map((order) => (
+      {orders.length !== 0 ? orders.map((order) => (
         <Button
           onClick={ () => history.push(`/customer/orders/${order.id}`) }
           key={ order.id }
@@ -57,7 +59,8 @@ export default function MyOrders() {
 
           </p>
         </Button>
-      ))}
+      ))
+        : <h2>Você não tem nenhum pedido</h2>}
     </div>
 
   );
