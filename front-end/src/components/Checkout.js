@@ -35,8 +35,7 @@ export default function Checkout() {
       totalPrice: totalPrice.toString().replace(',', '.'),
       deliveryAddress: order.adress,
       deliveryNumber: order.number,
-      productId: arr[0].id,
-      quantity: arr[0].quantity,
+      products: arr,
     };
     const request = await fetch('http://localhost:3001/sales', {
       method: 'POST',
@@ -45,8 +44,8 @@ export default function Checkout() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log(response);
-    history.push(`/customer/orders/${response.id}`);
+    console.log('response', response[0].id);
+    history.push(`/customer/orders/${response[0].id}`);
   }
 
   useState(() => {
