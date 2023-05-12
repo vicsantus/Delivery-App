@@ -18,11 +18,13 @@ export default function Table({ users, setUsers }) {
   return (
     <table>
       <thead>
-        <th>Item</th>
-        <th>Nome</th>
-        <th>E-mail</th>
-        <th>Tipo</th>
-        <th>Excluir</th>
+        <tr>
+          <th>Item</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Tipo</th>
+          <th>Excluir</th>
+        </tr>
       </thead>
       <tbody>
         {users?.map((person, index) => (
