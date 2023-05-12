@@ -23,7 +23,7 @@ function App() {
       <Route exact path="/customer/orders/:id" component={ OrderUserDetails } />
       <Route path="/seller/orders" component={ Seler } />
       <Route path="/customer/orders" component={ MyOrders } />
-      <Route path="/admin/manage" component={ Admin } />
+      <Route exact path="/admin/manage" component={ Admin } />
       <Route path="/customer" component={ Client } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/login" component={ Login } />
