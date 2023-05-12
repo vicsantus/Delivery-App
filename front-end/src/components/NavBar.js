@@ -4,7 +4,6 @@ import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
 export default function NavBar() {
   const history = useHistory();
-  const { location: { pathname } } = history;
   const [user, setUser] = useState();
   const customerProducts = 'customer_products';
   const dataTestid = {
@@ -13,8 +12,6 @@ export default function NavBar() {
     fullName: 'element-navbar-user-full-name',
     logout: 'element-navbar-link-logout',
   };
-
-  const checkPath = pathname === '/customer/products';
 
   useEffect(() => {
     const objUser = localStorage.getItem('user');
@@ -27,11 +24,13 @@ export default function NavBar() {
     history.push('/login');
   }
 
+  const checkRole = user?.role === 'customer';
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
       <Container>
 
-        {checkPath && (
+        {checkRole && (
           <Navbar.Brand
             href="/customer/products"
             data-testid={ `${customerProducts}__${dataTestid.products}` }
@@ -39,10 +38,11 @@ export default function NavBar() {
             PRODUTOS
           </Navbar.Brand>)}
         <Navbar.Brand
-          href={ checkPath ? '/customer/orders' : '/seller/orders' }
+          onClick={ () => history.push(checkRole
+            ? '/customer/orders' : '/seller/orders') }
           data-testid={ `${customerProducts}__${dataTestid.orders}` }
         >
-          {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}
+          {checkRole ? 'MEUS PEDIDOS' : 'PEDIDOS'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

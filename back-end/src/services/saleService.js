@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV || 'development';
 const Sequelize = require('sequelize');
-const { Sales, SalesProducts, Product } = require('../database/models/index');
+const { Sales, SalesProducts, Product, User } = require('../database/models/index');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config[env]);
@@ -10,6 +10,8 @@ const getById = async (id) => {
     {
     where: { id },
     include: [
+       { model: User, as: 'saleSellerId', attributes: { exclude: ['password'] },
+      },
       { model: SalesProducts,
         as: 'salesPId',
         include: [{

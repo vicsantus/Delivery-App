@@ -66,7 +66,7 @@ export default function Seler() {
               <p
                 data-testid={ `${sellerOrder}${sale.id}` }
               >
-                {index + 1}
+                {sale.id}
               </p>
             </div>
             <div
