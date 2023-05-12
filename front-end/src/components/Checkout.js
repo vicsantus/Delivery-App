@@ -17,16 +17,50 @@ export default function Checkout() {
   const [user, setUser] = useState([]);
   const [order, setOrder] = useState({});
 
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-
   async function requestUser() {
     const request = await fetch('http://localhost:3001/users/seller');
     const response = await request.json();
     setSeller(response);
   }
+
+  useState(() => {
+    setNewArray(arr);
+    setNewTotal(valueTotal);
+    requestUser();
+  });
+
+  function handleChange({ target }) {
+    setOrder({
+      ...order,
+      [target.name]: target.value,
+
+    });
+  }
+
+  function deletedProduct(item) {
+    const updatedArray = newArray.filter((product) => product.id !== item.id);
+    const updatedTotal = (newTotal - item.totalValue).toFixed(2);
+    console.log(updatedTotal);
+    setNewArray(updatedArray);
+    setNewTotal(updatedTotal);
+  }
+
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `${user?.token}`,
+  };
+
+  useEffect(() => {
+    const objUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(objUser);
+    setUser(parsedUser);
+
+    setOrder({
+      ...order,
+      sellerId: seller[0]?.id,
+    });
+  }, [seller]);
 
   async function createOrder() {
     const data = {
@@ -46,39 +80,6 @@ export default function Checkout() {
     const response = await request.json();
     console.log('response', response[0].id);
     history.push(`/customer/orders/${response[0].id}`);
-  }
-
-  useState(() => {
-    setNewArray(arr);
-    setNewTotal(valueTotal);
-    requestUser();
-  });
-
-  function handleChange({ target }) {
-    setOrder({
-      ...order,
-      [target.name]: target.value,
-
-    });
-  }
-
-  useEffect(() => {
-    const objUser = localStorage.getItem('user');
-    const parsedUser = JSON.parse(objUser);
-    setUser(parsedUser);
-
-    setOrder({
-      ...order,
-      sellerId: seller[0]?.id,
-    });
-  }, [seller]);
-
-  function deletedProduct(item) {
-    const updatedArray = newArray.filter((product) => product.id !== item.id);
-    const updatedTotal = newTotal - item.totalValue;
-    console.log(updatedTotal);
-    setNewArray(updatedArray);
-    setNewTotal(updatedTotal);
   }
 
   return (

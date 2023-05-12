@@ -32,7 +32,7 @@ export default function NavBar() {
       <Container>
 
         <Navbar.Brand
-          href="#home"
+          href="/customer/products"
           data-testid={ `${customerProducts}__${dataTestid.products}` }
         >
           PRODUTOS

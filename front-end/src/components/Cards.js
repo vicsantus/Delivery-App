@@ -20,8 +20,6 @@ export default function Cards() {
     buttonValue: 'checkout-bottom-value',
   };
 
-  const valueTotal = cartTotal.toFixed(2).toString().replace('.', ',');
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,21 +34,24 @@ export default function Cards() {
     fetchData();
   }, []);
 
+  const calculateCartTotal = () => {
+    let total = 0;
+    Object.values(quantities).forEach((product) => {
+      total += product.totalValue;
+    });
+    if (total > 0) {
+      setIsValueTotal(false);
+    } else {
+      setIsValueTotal(true);
+    }
+    setCartTotal(total);
+  };
+
   useEffect(() => {
-    const calculateCartTotal = () => {
-      let total = 0;
-      Object.values(quantities).forEach((product) => {
-        total += product.totalValue;
-      });
-      if (total > 0) setIsValueTotal(false);
-      setCartTotal(total);
-    };
+    calculateCartTotal();
     const dataCar = JSON.stringify(quantities);
     localStorage.setItem('car', dataCar);
-    localStorage.setItem('total', valueTotal);
-
-    calculateCartTotal();
-  }, [quantities, data, valueTotal]);
+  }, [quantities]);
 
   const handleQuantityChange = (productId, quantity) => {
     setQuantities((prevQuantities) => {
@@ -102,74 +103,79 @@ export default function Cards() {
           },
         };
       }
+
       const updatedQuantities = { ...prevQuantities };
       delete updatedQuantities[productId];
       return updatedQuantities;
     });
   };
 
+  const valueTotal = cartTotal.toFixed(2).toString().replace('.', ',');
+
+  const handleClickCart = () => {
+    localStorage.setItem('total', valueTotal);
+    history.push('/customer/checkout');
+  };
+
   return (
     <Row xs={ 1 } md={ 2 } className="g-4">
       {data.map((p, index) => (
         <Col key={ index.id }>
-          <Card>
-            <Card.Img
-              data-testid={ `${customerProducts}__${dataTestid.image}-${p.id}` }
-              variant="top"
-              style={ { width: '320px', height: '320px' } }
-              src={ p.urlImage }
-            />
-            <Card.Body>
-              <Card.Title
-                data-testid={ `${customerProducts}__${dataTestid.title}-${p.id}` }
-              >
-                {p.name}
-              </Card.Title>
-              <Card.Text
-                data-testid={ `${customerProducts}__${dataTestid.price}-${p.id}` }
-              >
-                {p.price.toString().replace('.', ',')}
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <Button
-                onClick={ () => handleRemove(p.id) }
-                data-testid={ `${customerProducts}__${dataTestid.rmItem}-${p.id}` }
-              >
-                -
-              </Button>
-              <Form>
-                <Form.Control
-                  data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
-                  value={ quantities[p.id]?.quantity === undefined ? 0
-                    : quantities[p.id]?.quantity }
-                  onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
-                />
-              </Form>
+          <Card.Img
+            data-testid={ `${customerProducts}__${dataTestid.image}-${p.id}` }
+            variant="top"
+            style={ { width: '20px', height: '20px' } }
+            src={ p.urlImage }
+          />
+          <Card.Body>
+            <Card.Title
+              data-testid={ `${customerProducts}__${dataTestid.title}-${p.id}` }
+            >
+              {p.name}
+            </Card.Title>
+            <Card.Text
+              data-testid={ `${customerProducts}__${dataTestid.price}-${p.id}` }
+            >
+              {p.price.toString().replace('.', ',')}
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <Button
+              onClick={ () => handleRemove(p.id) }
+              data-testid={ `${customerProducts}__${dataTestid.rmItem}-${p.id}` }
+            >
+              -
+            </Button>
+            <Form>
+              <Form.Control
+                data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
+                value={ quantities[p.id]?.quantity === undefined
+                  ? 0 : quantities[p.id]?.quantity }
+                onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
+              />
+            </Form>
 
-              <Button
-                onClick={ () => handleAdd(p.id) }
-                data-testid={ `customer_products__button-card-add-item-${p.id}` }
-              >
-                +
-              </Button>
-            </Card.Footer>
-          </Card>
+            <button
+              type="button"
+              onClick={ () => handleAdd(p.id) }
+              data-testid={ `${customerProducts}__${dataTestid.addItem}-${p.id}` }
+            >
+              +
+            </button>
+          </Card.Footer>
         </Col>
       ))}
       <Button
-        onClick={ () => history.push('/customer/checkout') }
+        onClick={ handleClickCart }
         data-testid={ `${customerProducts}__${dataTestid.buttonCart}` }
         disabled={ isValueTotal }
       >
-        Ver Carriho
+        Ver Carrinho
         {' '}
-        <span
-          data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }
-        >
+        <span data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }>
           {valueTotal}
-        </span>
 
+        </span>
       </Button>
     </Row>
   );

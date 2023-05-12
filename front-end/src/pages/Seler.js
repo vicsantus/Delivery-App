@@ -5,6 +5,8 @@ import DeliveryContext from '../context/DeliveryContext';
 
 export default function Seler() {
   const history = useHistory();
+
+  const sellerOrder = 'seller_orders__element-order-id-';
   const { dataUser, setOrderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
   const headers = {
@@ -53,18 +55,18 @@ export default function Seler() {
     <>
       <NavBar />
       <main>
-        { sales.map((sale) => (
+        { sales.map((sale, index) => (
           <button
             type="button"
             onClick={ () => goToOrderDetails(sale) }
             style={ { border: '1px solid black', margin: '5px' } } // temporario
-            key={ sale.id }
+            key={ index }
           >
             <div>
               <p
-                data-testid={ `seller_orders__element-delivery-order-id-${sale.id}` }
+                data-testid={ `${sellerOrder}${sale.id}` }
               >
-                {`Pedido ${sale.id}`}
+                {index + 1}
               </p>
             </div>
             <div
@@ -76,7 +78,7 @@ export default function Seler() {
               <p
                 data-testid={ `seller_orders__element-card-price-${sale.id}` }
               >
-                {`R$${sale.totalPrice}`}
+                {sale.totalPrice?.toString().replace('.', ',')}
               </p>
               <p
                 data-testid={ `seller_orders__element-order-date-${sale.id}` }
