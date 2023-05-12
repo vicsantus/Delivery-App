@@ -31,14 +31,15 @@ export default function NavBar() {
     <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
       <Container>
 
+        {checkPath && (
+          <Navbar.Brand
+            href="/customer/products"
+            data-testid={ `${customerProducts}__${dataTestid.products}` }
+          >
+            PRODUTOS
+          </Navbar.Brand>)}
         <Navbar.Brand
-          href="/customer/products"
-          data-testid={ `${customerProducts}__${dataTestid.products}` }
-        >
-          PRODUTOS
-        </Navbar.Brand>
-        <Navbar.Brand
-          href="/customer/orders"
+          href={ checkPath ? '/customer/orders' : '/seller/orders' }
           data-testid={ `${customerProducts}__${dataTestid.orders}` }
         >
           {checkPath ? 'MEUS PEDIDOS' : 'PEDIDOS'}

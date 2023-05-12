@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', salesController.getAll);
 router.post('/', verifyToken, salesController.createSales); // requisito 20
 router.put('/:id', salesController.updateState);
+router.get('/:id', salesController.getById);
 router.get('/orderUser/:userId', salesController.getbyUserId);
 
 module.exports = router; 

@@ -30,6 +30,16 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await saleService.getById(id);
+    return res.status(200).json(result);
+  } catch (error) {
+    next({ ...error, message: error.message, status: 404 });
+  }
+};
+
 const updateState = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -50,4 +60,4 @@ const getbyUserId = async (req, res, next) => {
   }
 };
 
-module.exports = { createSales, updateState, getAll, getbyUserId };
+module.exports = { createSales, updateState, getAll, getbyUserId, getById };

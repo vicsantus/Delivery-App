@@ -98,6 +98,8 @@ export default function GenericForm() {
     }
     if (!disabled && nameCheck) {
       setRegisterIsDisabled(false);
+    } else {
+      setRegisterIsDisabled(true);
     }
   }, [user.email, user.password, user.name, disabled]);
 

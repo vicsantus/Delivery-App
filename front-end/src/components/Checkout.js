@@ -78,8 +78,8 @@ export default function Checkout() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log('response', response[0].id);
-    history.push(`/customer/orders/${response[0].id}`);
+    // console.log('response', response);
+    history.push(`/customer/orders/${response}`);
   }
 
   return (
