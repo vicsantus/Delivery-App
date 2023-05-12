@@ -6,16 +6,21 @@ const config = require('../database/config/config');
 const sequelize = new Sequelize(config[env]);
 
 const getById = async (id) => {
-  const result = await Sales.findAll(
+  const result = await Sales.findOne(
     {
     where: { id },
     include: [
       { model: SalesProducts,
         as: 'salesPId',
+        include: [{
+          model: Product,
+          as: 'SaleProductsProductId',
+        }],
       },
     ],
   },
   ); 
+  if (!result) throw new Error('Non-existent id'); 
   return result;
 };
 
@@ -25,7 +30,7 @@ const createSales = async (saleBody) => {
   const t = await sequelize.transaction();
   try {
     const sale = await Sales.create({ ...newBody,
-  saleDate: Date.now(),
+    saleDate: Date.now(),
       status: 'Pendente',
     }, { transaction: t });
     await Promise.all(products.map((product) => SalesProducts.create({ saleId: sale.id,
@@ -33,7 +38,7 @@ const createSales = async (saleBody) => {
         productId: product.id,
       }, { transaction: t })));
     await t.commit();
-    return getById(sale.id);
+    return sale.id;
   } catch (e) {
     await t.rollback();
     throw e; 
@@ -64,7 +69,7 @@ const getbyUserId = async (userId) => {
 const updateState = async (body, id) => {
   const { status } = body;
   const checkSale = await getById(id);
-  if (checkSale.length === 0) throw new Error('Non-existent id'); 
+  if (!checkSale) throw new Error('Non-existent id'); 
   await Sales.update(
     { status },
     { where: { id } },
@@ -83,4 +88,4 @@ const updateState = async (body, id) => {
   return allSales;
 };
 
-module.exports = { updateState, createSales, getbyUserId, getAll };
+module.exports = { updateState, createSales, getbyUserId, getAll, getById };

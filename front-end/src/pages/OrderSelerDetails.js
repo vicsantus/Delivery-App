@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import DeliveryContext from '../context/DeliveryContext';
 
-export default function OrderDetails() {
+export default function OrderSelerDetails() {
   // const history = useHistory();
   // const { location: { pathname } } = history;
   const sellerOrder = 'seller_order_details';
@@ -43,7 +43,7 @@ export default function OrderDetails() {
     const TEM = 10;
     const yyyy = newDate.getFullYear();
     let mm = newDate.getMonth() + 1;
-    let dd = newDate.getDate();
+    let dd = newDate.getDate() + 1;
     if (dd < TEM) dd = `0${dd}`;
     if (mm < TEM) mm = `0${mm}`;
     return `${dd}/${mm}/${yyyy}`;

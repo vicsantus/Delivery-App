@@ -3,10 +3,11 @@ import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 import Client from './pages/Client';
 import Login from './pages/Login';
-import OrderDetails from './pages/OrderDetails';
+import OrderSelerDetails from './pages/OrderSelerDetails';
 import Register from './pages/Register';
 import Seler from './pages/Seler';
 import Admin from './pages/Admin';
+import OrderUserDetails from './pages/OrderUserDetails';
 
 function App() {
   const history = useHistory();
@@ -17,13 +18,13 @@ function App() {
 
   return (
     <Switch>
+      <Route exact path="/seller/orders/:id_do_produto" component={ OrderSelerDetails } />
+      <Route exact path="/customer/orders/:id" component={ OrderUserDetails } />
+      <Route exact path="/seller/orders" component={ Seler } />
+      <Route path="/admin/manage" component={ Admin } />
       <Route path="/customer" component={ Client } />
       <Route exact path="/register" component={ Register } />
       <Route exact path="/login" component={ Login } />
-      <Route exact path="/seller/orders/:id_do_produto" component={ OrderDetails } />
-      <Route path="/seller/orders" component={ Seler } />
-      <Route path="/customer/orders/:id" />
-      <Route path="/admin/manage" component={ Admin } />
     </Switch>
 
   );
