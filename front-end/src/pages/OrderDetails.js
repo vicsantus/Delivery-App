@@ -6,6 +6,7 @@ import DeliveryContext from '../context/DeliveryContext';
 export default function OrderDetails() {
   // const history = useHistory();
   // const { location: { pathname } } = history;
+  const sellerOrder = 'seller_order_details';
   const { orderDetails, setOrderDetails } = useContext(DeliveryContext);
   const [sales, setSales] = useState([]);
   const headers = {
@@ -64,8 +65,7 @@ export default function OrderDetails() {
             {formattedDate(orderDetails.saleDate)}
           </h3>
           <h3
-            data-testid="seller_order_details__
-            element-order-details-label-delivery-status"
+            data-testid={ `${sellerOrder}__element-order-details-label-delivery-status` }
           >
             {orderDetails.status}
           </h3>
@@ -74,6 +74,7 @@ export default function OrderDetails() {
             type="button"
             onClick={ makingOrder }
             name="Preparando"
+            disabled={ orderDetails.status !== 'Pendente' }
           >
             PREPARAR PEDIDO
           </button>
@@ -82,6 +83,7 @@ export default function OrderDetails() {
             type="button"
             onClick={ makingOrder }
             name="Em Trânsito"
+            disabled={ orderDetails.status !== 'Preparando' }
           >
             SAIU PARA ENTREGA
           </button>
@@ -117,28 +119,29 @@ export default function OrderDetails() {
                     `seller_order_details__element-order-table-quantity-${idx + 1}`
                   }
                 >
-                  {`${sale.quantity}`}
+                  {sale.quantity}
                 </td>
                 <td
                   data-testid={
                     `seller_order_details__element-order-table-unit-price-${idx}`
                   }
                 >
-                  {`R$ ${sale.SaleProductsProductId.price}`}
+                  {sale.SaleProductsProductId.price.toString().replace('.', ',')}
                 </td>
                 <td
                   data-testid={
                     `seller_order_details__element-order-table-unit-price-${idx}`
                   }
                 >
-                  {`R$ ${(sale.SaleProductsProductId.price * sale.quantity).toFixed(2)}`}
+                  {(sale.SaleProductsProductId.price * sale.quantity).toFixed(2)
+                    .toString().replace('.', ',')}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <h2 data-testid="seller_order_details__element-order-total-price">
-          {`R$ ${totalPriceOrder.toFixed(2)}`}
+          {totalPriceOrder.toFixed(2).toString().replace('.', ',')}
         </h2>
       </main>
     </>

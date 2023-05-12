@@ -40,7 +40,7 @@ export default function Seler() {
     const TEM = 10;
     const yyyy = newDate.getFullYear();
     let mm = newDate.getMonth() + 1;
-    let dd = newDate.getDate() + 1;
+    let dd = newDate.getDate();
     if (dd < TEM) dd = `0${dd}`;
     if (mm < TEM) mm = `0${mm}`;
     return `${dd}/${mm}/${yyyy}`;
@@ -55,18 +55,18 @@ export default function Seler() {
     <>
       <NavBar />
       <main>
-        { sales.map((sale) => (
+        { sales.map((sale, index) => (
           <button
             type="button"
             onClick={ () => goToOrderDetails(sale) }
             style={ { border: '1px solid black', margin: '5px' } } // temporario
-            key={ sale.id }
+            key={ index }
           >
             <div>
               <p
                 data-testid={ `${sellerOrder}${sale.id}` }
               >
-                {sale.id}
+                {index + 1}
               </p>
             </div>
             <div
