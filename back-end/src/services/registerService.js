@@ -1,6 +1,5 @@
 const { User } = require('../database/models/index');
 const passwordHash = require('../utils/passwordHash');
-const { createToken } = require('../middleware/Auth');
 
 const createUser = async (user) => {
   const { name, email, password, role } = user;
