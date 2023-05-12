@@ -18,11 +18,10 @@ export default function Admin() {
         headers,
       });
       const response = await request.json();
-      console.log(response);
       setUsers(response);
     };
     getUser();
-  }, []);
+  });
 
   return (
     <div>

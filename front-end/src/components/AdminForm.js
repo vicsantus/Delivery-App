@@ -1,22 +1,23 @@
 import { Form, Button } from 'react-bootstrap';
-import React, { useState, useEffect, useContext } from 'react';
-import DeliveryContext from '../context/DeliveryContext';
+import React, { useState, useEffect } from 'react';
 
 export default function AdminForm() {
   const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
   const [disabled, setDisabled] = useState(true);
-  const { dataUser } = useContext(DeliveryContext);
+  const [dataUser, setDataUser] = useState();
   const [userFound, setUserFound] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setDataUser(JSON.parse(user));
+  }, []);
+
   const [user, setUser] = useState({
     email: '',
     password: '',
     name: '',
-    role: 'Customer',
+    role: 'administrator',
   });
-  const headersPattern = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
 
   function handleChange({ target }) {
     const { name, value } = target;
@@ -45,15 +46,18 @@ export default function AdminForm() {
   }, [user.email, user.password, user.name, disabled]);
 
   async function buttonRegister() {
-    const { token } = dataUser;
-    console.log(token);
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: dataUser.token,
+    };
+
     const data = {
       name: user.name,
       email: user.email,
       password: user.password,
       role: user.role,
     };
-    const headers = { Authorization: token, ...headersPattern };
     const request = await fetch('http://localhost:3001/admin', {
       method: 'POST',
       mode: 'cors',
@@ -61,6 +65,7 @@ export default function AdminForm() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
+    console.log('oi', response);
     if (response.message === 'Email already registered') return setUserFound(true);
   }
 
@@ -114,16 +119,16 @@ export default function AdminForm() {
             value={ user.role }
             onChange={ (e) => handleChange(e) }
           >
-            <option value="Administrador">Administrador</option>
-            <option value="Seller">Seller</option>
-            <option value="Customer">Customer</option>
+            <option value="administrator">Administrador</option>
+            <option value="seller">Seller</option>
+            <option value="customer">Customer</option>
 
           </Form.Select>
         </Form.Group>
         <Button
           data-testid="admin_manage__button-register"
           variant="success"
-          type="submit"
+          type="button"
           onClick={ () => buttonRegister() }
           disabled={ registerIsDisabled }
         >

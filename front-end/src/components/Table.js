@@ -30,7 +30,7 @@ export default function Table({ users, setUsers }) {
         {users?.map((person, index) => (
           <tr key={ index }>
             <td
-              data-testid={ `admin_manage__element-user-table-item-number${index}` }
+              data-testid={ `admin_manage__element-user-table-item-number-${index}` }
             >
               {person.id}
 
