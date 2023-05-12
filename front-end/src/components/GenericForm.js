@@ -67,7 +67,7 @@ export default function GenericForm() {
       setHiddenMessage(true);
     }
     if (responseUser.role === 'administrator') {
-      return history.push('/adminitrator');
+      return history.push('/admin/manage');
     }
     if (responseUser.role === 'seller') {
       return history.push('/seller/orders');

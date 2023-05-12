@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -37,6 +38,7 @@ export default function MyOrders() {
 
   return (
     <div>
+      <NavBar />
       {orders.length !== 0 ? orders.map((order) => (
         <Button
           onClick={ () => history.push(`/customer/orders/${order.id}`) }

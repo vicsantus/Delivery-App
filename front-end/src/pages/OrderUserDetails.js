@@ -15,15 +15,16 @@ export default function OrderUserDetails() {
     async function requestOrderDetails() {
       const request = await fetch(`http://localhost:3001/sales/${id}`);
       const result = await request.json();
+      console.log('get', result);
       setOrderDetails(result);
     }
 
     requestOrderDetails();
   }, []);
 
-  async function makingOrder({ target }) {
+  async function makingOrder() {
     const data = {
-      status: target.name,
+      status: 'Entregue',
     };
     const request = await fetch(`http://localhost:3001/sales/${orderDetails.id}`, {
       method: 'PUT',
@@ -32,8 +33,8 @@ export default function OrderUserDetails() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log(response);
-    setOrderDetails(response);
+    console.log('put', response);
+    setOrderDetails({ ...orderDetails, status: response.status });
   }
 
   function formattedDate(today) {
@@ -63,15 +64,23 @@ export default function OrderUserDetails() {
             >
               {formattedDate(orderDetails?.saleDate)}
             </h3>
-            <h3>
+            <h3
+              data-testid={
+                `${customerOrder}__element-order-details-label-delivery-status`
+              }
+            >
               {orderDetails.status}
             </h3>
+            <p
+              data-testid={ `${customerOrder}__element-order-details-label-seller-name` }
+            >
+              {orderDetails.saleSellerId.name}
 
+            </p>
             <button
-              data-testid={ `${customerOrder}__button-dispatch-check` }
+              data-testid={ `${customerOrder}__button-delivery-check` }
               type="button"
-              name="Entregue"
-              onClick={ (e) => makingOrder(e) }
+              onClick={ () => makingOrder() }
               disabled={ orderDetails.status !== 'Em Trânsito' }
             >
               MARCAR COMO ENTREGE
