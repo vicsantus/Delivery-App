@@ -45,6 +45,11 @@
   width: 332px;
 }
 
+.orderDetails > div > button:disabled {
+  background-color: dimgray;
+}
+
+
 .orderDetails > div {
   align-items: center;
   background-color: #eaf1ef;
