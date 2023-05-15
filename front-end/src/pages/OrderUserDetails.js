@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import '../styles/OrderDetails.css';
 
 export default function OrderUserDetails() {
   const { id } = useParams();
@@ -53,30 +54,32 @@ export default function OrderUserDetails() {
     <>
       <NavBar />
       {orderDetails && (
-        <main>
+        <main className="orderDetails">
           <div>
             <h3 data-testid={ `${customerOrder}__element-order-details-label-order-id` }>
               Pedido
               {orderDetails.id}
             </h3>
+            <h2
+              data-testid={ `${customerOrder}__element-order-details-label-seller-name` }
+            >
+              {orderDetails.saleSellerId.name}
+
+            </h2>
             <h3
               data-testid={ `${customerOrder}__element-order-details-label-order-date` }
             >
               {formattedDate(orderDetails?.saleDate)}
             </h3>
             <h3
+              className={ orderDetails.status !== 'Em Trânsito'
+                ? orderDetails.status : 'emTransito' }
               data-testid={
                 `${customerOrder}__element-order-details-label-delivery-status`
               }
             >
               {orderDetails.status}
             </h3>
-            <p
-              data-testid={ `${customerOrder}__element-order-details-label-seller-name` }
-            >
-              {orderDetails.saleSellerId.name}
-
-            </p>
             <button
               data-testid={ `${customerOrder}__button-delivery-check` }
               type="button"

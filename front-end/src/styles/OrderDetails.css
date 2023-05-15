@@ -63,18 +63,60 @@
 }
 
 .Pendente {
+  align-content: center;
+  align-items: center;
   background: rgba(204, 184, 0, 0.75);
+  border-radius: 10px;
   color: #001813;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  height: 52px;
+  justify-content: center;
+  line-height: 42px;
+  margin: 3px;
+  text-align: center;
+  width: 295px;
 }
 
 .Preparando {
+  align-content: center;
+  align-items: center;
   background: rgba(102, 204, 0, 0.75);
+  border-radius: 10px;
   color: #001813;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  height: 52px;
+  justify-content: center;
+  line-height: 42px;
+  margin: 3px;
+  text-align: center;
+  width: 295px;
 }
 
 .Entregue {
+  align-content: center;
+  align-items: center;
   background: rgba(0, 204, 155, 0.75);
+  border-radius: 10px;
   color: #001813;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  height: 52px;
+  justify-content: center;
+  line-height: 42px;
+  margin: 3px;
+  text-align: center;
+  width: 295px;
 }
 
 
@@ -96,8 +138,22 @@
 }
 
 .emTransito {
+  align-content: center;
+  align-items: center;
   background: #036b52;
+  border-radius: 10px;
   color: #f2fffc;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  height: 52px;
+  justify-content: center;
+  line-height: 42px;
+  margin: 3px;
+  text-align: center;
+  width: 295px;
 }
 
 .orderDetails > table {
