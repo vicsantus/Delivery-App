@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap') ;
+
 * {
   border: 0;
   box-sizing: border-box;
@@ -5,9 +7,142 @@
   padding: 0;
 }
 
+.title {
+  background-color: white;
+  color: black;
+  font-size: 2em;
+}
+
 .content {
   margin: 30px auto;
-  width: 60%;
+  width: 65%;
+}
+
+
+table {
+  border: 1px solid #b1c2be;
+  border-collapse: separate;
+  border-spacing: 0 21px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  width: 1599px;
+}
+
+.content > table {
+  border-collapse: separate;
+  border-spacing: 0 21px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1599px;
+}
+
+.thead > tr > th {
+  background-color: white;
+  color: #001813;
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.content tr > td {
+  color: #001813;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 42px;
+  padding: 9px;
+  text-align: center;
+  text-indent: 20px;
+}
+
+.content tr > td:first-child {
+  background: #2fc18c;
+  border-radius: 10px 0 0 10px;
+}
+
+.content tr > td:nth-child( 2 ) {
+  align-items: center;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 42px;
+  text-indent: 20px;
+}
+
+.content tr > td:nth-child( 3 ) {
+  background: #036b52;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.content tr > td:nth-child( 4 ):before {
+  content: 'R$ ';
+}
+
+.content tr > td:nth-child( 4 ) {
+  background: #421981;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.content tr > td:nth-child( 5 ):before {
+  content: 'R$ ';
+}
+
+.content tr > td:nth-child( 5 ) {
+  background: #056cf9;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.content tr {
+  background-color: #eaf1ef;
+}
+
+.btn-remove {
+  background: #036b52;
+  color: white;
+  font-size: 36px;
+}
+
+.td {
+  background: #036b52;
+  border-radius: 0 10px 10px 0;
+}
+
+.total-price {
+  background-color: #036b52;
+  color: white;
+  font-size: 2em;
+  height: 60px;
+  padding-top: 10px;
+  text-align: center;
+  width: 200px;
 }
 
 .form-checkout {
