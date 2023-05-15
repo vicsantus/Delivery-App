@@ -1,0 +1,66 @@
+.card {
+  background: white;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  margin: 35px 15px 5px;
+  padding: 0;
+  width: 18rem;
+}
+
+.g-4 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.quantity {
+  background: white;
+  box-sizing: border-box;
+  left: 41.78%;
+  right: 41.78%;
+  top: 39.54px;
+  width: 15%;
+}
+
+.value {
+  text-align: center;
+}
+
+.card-img-top {
+  margin-left: 5%;
+  padding: 10px;
+}
+
+.buttonSub {
+  background: #036b52;
+  border: #036b52;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  width: 15%;
+}
+
+.buttonSub:hover {
+  background: #048a6b;
+  border: #048a6b;
+}
+
+.containerPai {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttonCar {
+  background: #036b52;
+  border: #036b52;
+}
