@@ -188,7 +188,7 @@ export default function Cards() {
         <span
           data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }
         >
-          {valueTotal}
+          {`R$${valueTotal}`}
 
         </span>
       </Button>
