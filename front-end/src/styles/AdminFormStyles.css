@@ -1,0 +1,49 @@
+.nav-bar-adm {
+  display: none;
+}
+
+.main-form {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+  width: 80%;
+}
+
+.form-container label {
+  width: 200px;
+}
+
+.form-container input {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-container select {
+  border-radius: 5px;
+  cursor: pointer;
+  height: 48px;
+  padding: 10px;
+  width: 200px;
+}
+
+.form-container button {
+  background-color: #036b52;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  height: 48px;
+  padding: 10px;
+  width: 200px;
+}
+
+.form-container button:disabled {
+  background-color: #9ba4b5;
+}

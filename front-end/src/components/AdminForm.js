@@ -1,5 +1,5 @@
-import { Form, Button } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
+import '../styles/AdminFormStyles.css';
 
 export default function AdminForm() {
   const [registerIsDisabled, setRegisterIsDisabled] = useState(true);
@@ -42,6 +42,8 @@ export default function AdminForm() {
     }
     if (!disabled && nameCheck) {
       setRegisterIsDisabled(false);
+    } else {
+      setRegisterIsDisabled(true);
     }
   }, [user.email, user.password, user.name, disabled]);
 
@@ -70,50 +72,44 @@ export default function AdminForm() {
   }
 
   return (
-    <div>
+    <div className="main-form">
 
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Nome</Form.Label>
-          <Form.Control
+      <form className="form-container">
+        <label htmlFor="name">
+          Nome
+          <input
             data-testid="admin_manage__input-name"
             type="text"
             name="name"
             onChange={ (e) => handleChange(e) }
             placeholder="Seu nome"
           />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
+        </label>
+        <label htmlFor="email">
+          Email
+          <input
             data-testid="admin_manage__input-email"
             type="email"
             onChange={ (e) => handleChange(e) }
             name="email"
             placeholder="exemplo@exemplo.com"
           />
-          <Form.Text className="text-muted" />
-        </Form.Group>
+        </label>
 
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicPassword"
-        >
-          <Form.Label>Senha</Form.Label>
-          <Form.Control
+        <label htmlFor="password">
+          Senha
+          <input
             data-testid="admin_manage__input-password"
             type="password"
             name="password"
             onChange={ (e) => handleChange(e) }
             placeholder="*******"
           />
-        </Form.Group>
-        <Form.Group
-          className="mb-3"
-          controlId="formBasicPassword"
-        >
-          <Form.Label>Role</Form.Label>
-          <Form.Select
+        </label>
+
+        <label htmlFor="role">
+          Role
+          <select
             data-testid="admin_manage__select-role"
             name="role"
             value={ user.role }
@@ -123,9 +119,9 @@ export default function AdminForm() {
             <option value="seller">Seller</option>
             <option value="customer">Customer</option>
 
-          </Form.Select>
-        </Form.Group>
-        <Button
+          </select>
+        </label>
+        <button
           data-testid="admin_manage__button-register"
           variant="success"
           type="button"
@@ -133,8 +129,8 @@ export default function AdminForm() {
           disabled={ registerIsDisabled }
         >
           Cadastrar
-        </Button>
-      </Form>
+        </button>
+      </form>
       {userFound
       && (
         <p

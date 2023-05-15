@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import '../styles/AdminFormStyles.css';
 
 export default function NavBar() {
   const history = useHistory();
@@ -38,6 +39,7 @@ export default function NavBar() {
             PRODUTOS
           </Navbar.Brand>)}
         <Navbar.Brand
+          className="nav-bar-adm"
           onClick={ () => history.push(checkRole
             ? '/customer/orders' : '/seller/orders') }
           data-testid={ `${customerProducts}__${dataTestid.orders}` }
