@@ -235,6 +235,7 @@
 
 .orderDetails tr > td:nth-child( 5 ) {
   background: #056cf9;
+  border-radius: 0 10px 10px 0;
   color: #f2fffc;
   font-family: Roboto , sans-serif;
   font-size: 36px;
@@ -261,6 +262,8 @@
   font-style: normal;
   font-weight: 700;
   line-height: 75px;
+  margin-bottom: 21px;
+  margin-right: 21px;
   text-align: center;
   width: 513px;
 }
