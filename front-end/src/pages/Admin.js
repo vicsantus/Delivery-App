@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminForm from '../components/AdminForm';
+import NavBar from '../components/NavBar';
 import Table from '../components/Table';
 
 export default function Admin() {
@@ -25,6 +26,7 @@ export default function Admin() {
 
   return (
     <div>
+      <NavBar />
       <AdminForm />
       <Table users={ users } setUsers={ setUsers } />
     </div>
