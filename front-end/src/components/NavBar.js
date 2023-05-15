@@ -30,7 +30,15 @@ export default function NavBar() {
   console.log(isAdmin);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="success" variant="dark">
+    <Navbar
+      style={
+        { height: '100px' }
+      }
+      collapseOnSelect
+      expand="lg"
+      bg="success"
+      variant="dark"
+    >
       <Container>
 
         {checkRole && (
@@ -58,6 +66,7 @@ export default function NavBar() {
               {user?.name}
             </Nav.Link>
             <Button
+              size="lg"
               eventKey={ 2 }
               data-testid={ `${customerProducts}__${dataTestid.logout}` }
               onClick={ () => logout() }

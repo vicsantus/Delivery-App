@@ -133,7 +133,7 @@ export default function GenericForm() {
   }
 
   return (
-    <div className="form">
+    <div className="form-generic">
       <Form>
         {
           !checkPath && (

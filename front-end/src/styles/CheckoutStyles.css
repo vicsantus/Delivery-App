@@ -1,0 +1,70 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  margin: 30px auto;
+  width: 60%;
+}
+
+.form-checkout {
+  align-items: center;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 100%;
+}
+
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+  margin-top: 50px;
+}
+
+select {
+  background: white;
+  border: 1px solid #001813;
+  border-radius: 5px;
+  font-size: 1.5em;
+  height: 60px;
+  width: 300px;
+}
+
+.adress {
+  background: white;
+  border: 1px solid #001813;
+  border-radius: 5px;
+  font-size: 1.5em;
+  height: 60px;
+  width: 750px;
+}
+
+.number {
+  background: white;
+  border: 1px solid #001813;
+  border-radius: 5px;
+  font-size: 1.5em;
+  height: 60px;
+  width: 200px;
+}
+
+.button {
+  background-color: #036b52;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.5em;
+  height: 70px;
+  margin-top: 30px;
+  width: 400px;
+}
+
+.button:hover {
+  opacity: 0.9;
+}

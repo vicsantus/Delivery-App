@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DeliveryContext from '../context/DeliveryContext';
+import '../styles/OrdersStyle.css';
 
 export default function Seler() {
   const history = useHistory();
@@ -54,47 +55,57 @@ export default function Seler() {
   return (
     <>
       <NavBar />
-      <main>
+      <div className="container-orders">
         { sales.map((sale, index) => (
           <button
+            className="button-order"
             type="button"
             onClick={ () => goToOrderDetails(sale) }
-            style={ { border: '1px solid black', margin: '5px' } } // temporario
             key={ index }
           >
-            <div>
-              <p
-                data-testid={ `${sellerOrder}${sale.id}` }
+            <div className="content-order">
+              <div className="item">
+                <p>Pedido</p>
+                <p
+                  data-testid={ `${sellerOrder}${sale.id}` }
+                >
+                  {sale.id}
+                </p>
+              </div>
+              <div
+                className="status"
               >
-                {sale.id}
-              </p>
+                <p data-testid={ `seller_orders__element-delivery-status-${sale.id}` }>
+                  {sale.status}
+                </p>
+
+              </div>
+              <div className="date-price">
+                <p
+                  data-testid={ `seller_orders__element-card-price-${sale.id}` }
+                >
+                  {sale.totalPrice?.toString().replace('.', ',')}
+                </p>
+                <p
+                  data-testid={ `seller_orders__element-order-date-${sale.id}` }
+                >
+                  {formattedDate(sale.saleDate)}
+                </p>
+                <span
+                  className="adress-order"
+                  data-testid={ `seller_orders__element-card-address-${sale.id}` }
+                >
+                  {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
+                </span>
+              </div>
+
+              <div />
+
             </div>
-            <div
-              data-testid={ `seller_orders__element-delivery-status-${sale.id}` }
-            >
-              {sale.status}
-            </div>
-            <div>
-              <p
-                data-testid={ `seller_orders__element-card-price-${sale.id}` }
-              >
-                {sale.totalPrice?.toString().replace('.', ',')}
-              </p>
-              <p
-                data-testid={ `seller_orders__element-order-date-${sale.id}` }
-              >
-                {formattedDate(sale.saleDate)}
-              </p>
-            </div>
-            <p
-              data-testid={ `seller_orders__element-card-address-${sale.id}` }
-            >
-              {`${sale.deliveryAddress}, ${sale.deliveryNumber}`}
-            </p>
-            <div />
+
           </button>
         ))}
-      </main>
+      </div>
     </>
   );
 }

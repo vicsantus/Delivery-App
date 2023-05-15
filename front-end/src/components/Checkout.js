@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, ListGroup } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import '../styles/CheckoutStyles.css';
 
 export default function Checkout() {
   const history = useHistory();
@@ -83,46 +83,79 @@ export default function Checkout() {
   }
 
   return (
-    <div>
+    <div className="content">
+      <h2 className="title">Finalizar Pedido</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descrição</th>
+            <th>quantidade</th>
+            <th>Valor unitário</th>
+            <th>Sub-total</th>
+            <th>Remover Item</th>
+          </tr>
+
+        </thead>
+
+      </table>
       {Array.isArray(newArray) ? (
         newArray.map((item, index) => (
-          <ListGroup key={ index } horizontal className="my-2">
-            <ListGroup.Item
-              data-testid={
-                `customer_checkout__element-order-table-item-number-${index}`
-              }
-            >
-              {index + 1}
-            </ListGroup.Item>
-            <ListGroup.Item
-              data-testid={ `customer_checkout__element-order-table-name-${index}` }
-            >
-              {item.name}
+          <tbody key={ index } id="tbVendas" rules="rows">
+            <tr className="itens">
+              <td
+                className="item"
+                data-testid={
+                  `customer_checkout__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                className="description"
+                data-testid={ `customer_checkout__element-order-table-name-${index}` }
+              >
+                {item.name}
 
-            </ListGroup.Item>
-            <ListGroup.Item
-              data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-            >
-              {item.quantity}
-            </ListGroup.Item>
-            <ListGroup.Item
-              data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
-            >
-              {item.unitValue.toString().replace('.', ',')}
-            </ListGroup.Item>
-            <ListGroup.Item
-              data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
-            >
-              {item.totalValue.toFixed(2).toString().replace('.', ',')}
-            </ListGroup.Item>
-            <Button
-              data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-              id={ item.id }
-              onClick={ () => deletedProduct(item) }
-            >
-              Remover
-            </Button>
-          </ListGroup>
+              </td>
+
+              <td
+                className="quantity"
+                data-testid={
+                  `customer_checkout__element-order-table-quantity-${index}`
+                }
+              >
+                {item.quantity}
+              </td>
+              <td
+                className="unit-price"
+                data-testid={
+                  `customer_checkout__element-order-table-unit-price-${index}`
+                }
+              >
+                {item.unitValue.toString().replace('.', ',')}
+              </td>
+              <td
+                className="sub-total"
+                data-testid={
+                  `customer_checkout__element-order-table-sub-total-${index}`
+                }
+              >
+                {item.totalValue.toFixed(2).toString().replace('.', ',')}
+              </td>
+
+              <button
+                className="remove"
+                type="button"
+                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+                id={ item.id }
+                onClick={ () => deletedProduct(item) }
+              >
+                Remover
+              </button>
+            </tr>
+
+          </tbody>
         ))
       ) : (
         <p>Não tem itens no carrinho.</p>
@@ -133,51 +166,58 @@ export default function Checkout() {
         {totalPrice}
 
       </span>
+      <h2>Detalhes e Endereço para Entrega</h2>
+      <div className="form-checkout">
+        <form>
 
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Vendedora(o)</Form.Label>
-          <Form.Select
-            onChange={ (e) => handleChange(e) }
-            name="sellerId"
-            data-testid="customer_checkout__select-seller"
-          >
-            {seller.map((s) => (
-              <option key={ s.id } value={ s.id }>{s.name}</option>
-            ))}
+          <label htmlFor="seller-id">
+            Vendedora(o)
 
-          </Form.Select>
-        </Form.Group>
+            <select
+              onChange={ (e) => handleChange(e) }
+              name="sellerId"
+              data-testid="customer_checkout__select-seller"
+            >
+              {seller.map((s) => (
+                <option key={ s.id } value={ s.id }>{s.name}</option>
+              ))}
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Endereço para entrega</Form.Label>
-          <Form.Control
-            onChange={ (e) => handleChange(e) }
-            name="adress"
-            data-testid="customer_checkout__input-address"
-            type="test"
-            placeholder="Endereço"
-          />
-        </Form.Group>
+            </select>
+          </label>
 
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Label>Número</Form.Label>
-          <Form.Control
-            name="number"
-            onChange={ (e) => handleChange(e) }
-            data-testid="customer_checkout__input-address-number"
-            type="number"
-          />
-        </Form.Group>
-      </Form>
-      <Button
-        data-testid="customer_checkout__button-submit-order"
-        variant="primary"
-        type="button"
-        onClick={ () => createOrder() }
-      >
-        Fazer pedido
-      </Button>
+          <label htmlFor="adress">
+            Endereço para entrega
+            <input
+              className="adress"
+              onChange={ (e) => handleChange(e) }
+              name="adress"
+              data-testid="customer_checkout__input-address"
+              type="test"
+              placeholder="Digite o endereço para entrega"
+            />
+          </label>
+
+          <label htmlFor="number">
+            Número
+            <input
+              className="number"
+              name="number"
+              onChange={ (e) => handleChange(e) }
+              data-testid="customer_checkout__input-address-number"
+              type="number"
+            />
+          </label>
+        </form>
+        <button
+          className="button"
+          data-testid="customer_checkout__button-submit-order"
+          type="button"
+          onClick={ () => createOrder() }
+        >
+          Fazer pedido
+        </button>
+      </div>
+
     </div>
   );
 }

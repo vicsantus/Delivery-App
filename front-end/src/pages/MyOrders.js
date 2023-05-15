@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import '../styles/OrdersStyle.css';
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -39,30 +39,50 @@ export default function MyOrders() {
   return (
     <div>
       <NavBar />
-      {orders.length !== 0 ? orders.map((order) => (
-        <Button
-          onClick={ () => history.push(`/customer/orders/${order.id}`) }
-          key={ order.id }
-        >
-          <p data-testid={ `customer_orders__element-order-id-${order.id}` }>
-            {order.id}
+      <div className="container-orders">
+        {orders.length !== 0 ? orders.map((order) => (
+          <button
+            className="button-order"
+            type="button"
+            onClick={ () => history.push(`/customer/orders/${order.id}`) }
+            key={ order.id }
+          >
+            {' '}
+            <div className="content-order">
+              <div className="item">
+                <p>Pedido</p>
+                <p
+                  data-testid={ `customer_orders__element-order-id-${order.id}` }
+                >
+                  {order.id}
+                </p>
+              </div>
 
-          </p>
-          <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
-            {order.status}
+              <div className="status">
+                <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
+                  {order.status}
 
-          </p>
-          <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
-            {formattedDate(order.saleDate)}
+                </p>
+              </div>
+              <div className="date-price">
+                <p data-testid={ `customer_orders__element-order-date-${order.id}` }>
+                  {formattedDate(order.saleDate)}
 
-          </p>
-          <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
-            {order.totalPrice.toString().replace('.', ',')}
+                </p>
+                <p data-testid={ `customer_orders__element-card-price-${order.id}` }>
+                  {order.totalPrice.toString().replace('.', ',')}
 
-          </p>
-        </Button>
-      ))
-        : <h2>Você não tem nenhum pedido</h2>}
+                </p>
+              </div>
+
+            </div>
+
+          </button>
+        ))
+          : <h2>Você não tem nenhum pedido</h2>}
+
+      </div>
+
     </div>
 
   );
