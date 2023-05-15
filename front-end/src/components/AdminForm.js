@@ -67,13 +67,18 @@ export default function AdminForm() {
       body: JSON.stringify(data),
     });
     const response = await request.json();
-    console.log('oi', response);
+    setUser({
+      email: '',
+      password: '',
+      name: '',
+      role: 'administrator',
+    });
     if (response.message === 'Email already registered') return setUserFound(true);
   }
 
   return (
     <div className="main-form">
-
+      <h5>Lista de usuários</h5>
       <form className="form-container">
         <label htmlFor="name">
           Nome
@@ -81,6 +86,7 @@ export default function AdminForm() {
             data-testid="admin_manage__input-name"
             type="text"
             name="name"
+            value={ user.name }
             onChange={ (e) => handleChange(e) }
             placeholder="Seu nome"
           />
@@ -90,6 +96,7 @@ export default function AdminForm() {
           <input
             data-testid="admin_manage__input-email"
             type="email"
+            value={ user.email }
             onChange={ (e) => handleChange(e) }
             name="email"
             placeholder="exemplo@exemplo.com"
@@ -102,6 +109,7 @@ export default function AdminForm() {
             data-testid="admin_manage__input-password"
             type="password"
             name="password"
+            value={ user.password }
             onChange={ (e) => handleChange(e) }
             placeholder="*******"
           />

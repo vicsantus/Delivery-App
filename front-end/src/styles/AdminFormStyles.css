@@ -6,14 +6,24 @@
 .main-form {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.main-form h5 {
+  width: 80%;
 }
 
 .form-container {
   align-items: flex-end;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   display: flex;
   justify-content: space-around;
-  margin: 20px;
+  padding: 10px;
+  padding-bottom: 20px;
   width: 80%;
 }
 
@@ -27,6 +37,8 @@
 }
 
 .form-container select {
+  background-color: white;
+  border: 2px solid rgb(118, 118, 118);
   border-radius: 5px;
   cursor: pointer;
   height: 48px;

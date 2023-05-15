@@ -1,0 +1,61 @@
+.table-main {
+  margin: auto;
+  width: 80%;
+}
+
+.table-container {
+  border-collapse: separate;
+  border-radius: 5px;
+  border-spacing: 0 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+.tbody-container {
+  width: 100%;
+}
+
+.tbody-container td {
+  margin: 10px;
+}
+
+.id-user {
+  background-color: #2fc18c;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+
+.name-user {
+  background-color: #f0f0f0;
+}
+
+.email-user {
+  background-color: #036b52;
+  color: white;
+}
+
+
+.role-user {
+  background-color: #421981;
+  color: white;
+}
+
+.button-exclude-container {
+  background-color: #056cf9;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.button-exclude {
+  background-color: #056cf9;
+  border: none;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  color: white;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
