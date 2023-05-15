@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 // import { useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DeliveryContext from '../context/DeliveryContext';
+import '../styles/OrderDetails.css';
 
 export default function OrderSelerDetails() {
   // const history = useHistory();
@@ -52,11 +53,11 @@ export default function OrderSelerDetails() {
   return (
     <>
       <NavBar />
-      <main>
+      <main className="orderDetails">
         <div>
           <h3 data-testid="seller_order_details__element-order-details-label-order-id">
             Pedido
-            {' '}
+            {' 000'}
             {orderDetails.id}
           </h3>
           <h3
@@ -65,6 +66,8 @@ export default function OrderSelerDetails() {
             {formattedDate(orderDetails.saleDate)}
           </h3>
           <h3
+            className={ orderDetails.status !== 'Em Trânsito'
+              ? orderDetails.status : 'emTransito' }
             data-testid={ `${sellerOrder}__element-order-details-label-delivery-status` }
           >
             {orderDetails.status}

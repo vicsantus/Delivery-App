@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap') ;
+
+* {
+  box-sizing: border-box;
+}
+
+.orderDetails {
+  align-content: center;
+  background: #fbfffe;
+  border: 1px solid #b1c2be;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 50px;
+  justify-content: center;
+  margin: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1644px;
+}
+
+.orderDetails button:first-of-type {
+  background: #2fc18c;
+  border-radius: 10px;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  height: 52px;
+  line-height: 33px;
+  width: 332px;
+}
+
+.orderDetails button:last-of-type {
+  background: #036b52;
+  border-radius: 10px;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  height: 52px;
+  line-height: 28px;
+  width: 332px;
+}
+
+.orderDetails > div {
+  align-items: center;
+  background-color: #eaf1ef;
+  display: flex;
+  gap: 6px;
+  justify-content: space-around;
+  width: 1640px;
+}
+
+.orderDetails > div > h3:nth-child( 1 ), .orderDetails > div > h3:nth-child( 2 ) {
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  margin: 3px;
+}
+
+.Pendente {
+  background: rgba(204, 184, 0, 0.75);
+  color: #001813;
+}
+
+.Preparando {
+  background: rgba(102, 204, 0, 0.75);
+  color: #001813;
+}
+
+.Entregue {
+  background: rgba(0, 204, 155, 0.75);
+  color: #001813;
+}
+
+
+.orderDetails > div > h3:nth-child( 3 ) {
+  align-content: center;
+  align-items: center;
+  border-radius: 10px;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  height: 52px;
+  justify-content: center;
+  line-height: 42px;
+  margin: 3px;
+  text-align: center;
+  width: 295px;
+}
+
+.emTransito {
+  background: #036b52;
+  color: #f2fffc;
+}
+
+.orderDetails > table {
+  border-collapse: separate;
+  border-spacing: 0 21px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1599px;
+}
+
+.orderDetails > table > thead > th {
+  color: #001813;
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.orderDetails tr > td {
+  color: #001813;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 42px;
+  padding: 9px;
+  text-align: center;
+  text-indent: 20px;
+}
+
+.orderDetails tr > td:first-child {
+  background: #2fc18c;
+  border-radius: 10px 0 0 10px;
+}
+
+.orderDetails tr > td:nth-child( 2 ) {
+  align-items: center;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 42px;
+  text-indent: 20px;
+}
+
+.orderDetails tr > td:nth-child( 3 ) {
+  background: #036b52;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.orderDetails tr > td:nth-child( 4 ):before {
+  content: 'R$ ';
+}
+
+.orderDetails tr > td:nth-child( 4 ) {
+  background: #421981;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.orderDetails tr > td:nth-child( 5 ):before {
+  content: 'R$ ';
+}
+
+.orderDetails tr > td:nth-child( 5 ) {
+  background: #056cf9;
+  color: #f2fffc;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
+}
+
+.orderDetails tr {
+  background-color: #eaf1ef;
+}
+
+.orderDetails > h2:before {
+  content: 'Total: R$ ';
+}
+
+.orderDetails > h2 {
+  align-self: flex-end;
+  background: #036b52;
+  border-radius: 10px;
+  color: #f2fffc;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 75px;
+  text-align: center;
+  width: 513px;
+}
