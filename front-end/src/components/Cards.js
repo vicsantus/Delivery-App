@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import '../styles/Cards.css';
 
 export default function Cards() {
   const history = useHistory();
@@ -119,61 +120,75 @@ export default function Cards() {
 
   return (
     <Row xs={ 1 } md={ 2 } className="g-4">
-      {data.map((p, index) => (
-        <Col key={ index.id }>
-          <Card.Img
-            data-testid={ `${customerProducts}__${dataTestid.image}-${p.id}` }
-            variant="top"
-            style={ { width: '20px', height: '20px' } }
-            src={ p.urlImage }
-          />
-          <Card.Body>
-            <Card.Title
-              data-testid={ `${customerProducts}__${dataTestid.title}-${p.id}` }
-            >
-              {p.name}
-            </Card.Title>
-            <Card.Text
-              data-testid={ `${customerProducts}__${dataTestid.price}-${p.id}` }
-            >
-              {p.price.toString().replace('.', ',')}
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <Button
-              onClick={ () => handleRemove(p.id) }
-              data-testid={ `${customerProducts}__${dataTestid.rmItem}-${p.id}` }
-            >
-              -
-            </Button>
-            <Form>
-              <Form.Control
-                data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
-                value={ quantities[p.id]?.quantity === undefined
-                  ? 0 : quantities[p.id]?.quantity }
-                onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
-              />
-            </Form>
+      <div className="containerPai">
+        {data.map((p, index) => (
+          <Col
+            class="card"
+            key={ index.id }
+          >
+            <Card.Img
+              data-testid={ `${customerProducts}__${dataTestid.image}-${p.id}` }
+              class="card-img-top"
+              variant="top"
+              style={ { width: '250px', height: '250px' } }
+              src={ p.urlImage }
+            />
+            <Card.Body class="card-body">
+              <Card.Title
+                class="card-title"
+                data-testid={ `${customerProducts}__${dataTestid.title}-${p.id}` }
+              >
+                {p.name}
+              </Card.Title>
+              <Card.Text
+                data-testid={ `${customerProducts}__${dataTestid.price}-${p.id}` }
+              >
+                {p.price.toString().replace('.', ',')}
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer className="cardFooter">
+              <Button
+                className="buttonSub"
+                onClick={ () => handleRemove(p.id) }
+                data-testid={ `${customerProducts}__${dataTestid.rmItem}-${p.id}` }
+              >
+                -
+              </Button>
+              <Form className="quantity">
+                <Form.Control
+                  className="value"
+                  data-testid={ `${customerProducts}__${dataTestid.quantity}-${p.id}` }
+                  value={ quantities[p.id]?.quantity === undefined
+                    ? 0 : quantities[p.id]?.quantity }
+                  onChange={ (e) => handleQuantityChange(p.id, e.target.value) }
+                />
+              </Form>
 
-            <button
-              type="button"
-              onClick={ () => handleAdd(p.id) }
-              data-testid={ `${customerProducts}__${dataTestid.addItem}-${p.id}` }
-            >
-              +
-            </button>
-          </Card.Footer>
-        </Col>
-      ))}
+              <Button
+                type="button"
+                className="buttonSub"
+                onClick={ () => handleAdd(p.id) }
+                data-testid={ `${customerProducts}__${dataTestid.addItem}-${p.id}` }
+              >
+                +
+              </Button>
+            </Card.Footer>
+          </Col>
+        ))}
+      </div>
       <Button
+        type="button"
         onClick={ handleClickCart }
         data-testid={ `${customerProducts}__${dataTestid.buttonCart}` }
         disabled={ isValueTotal }
+        class="btn-primary"
       >
         Ver Carrinho
         {' '}
-        <span data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }>
-          {valueTotal}
+        <span
+          data-testid={ `${customerProducts}__${dataTestid.buttonValue}` }
+        >
+          {`R$${valueTotal}`}
 
         </span>
       </Button>

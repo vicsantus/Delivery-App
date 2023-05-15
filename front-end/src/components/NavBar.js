@@ -57,6 +57,7 @@ export default function NavBar() {
               eventKey={ 2 }
               data-testid={ `${customerProducts}__${dataTestid.logout}` }
               onClick={ () => logout() }
+              class="btn-primary"
             >
               Sair
             </Button>
