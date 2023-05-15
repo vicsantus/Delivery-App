@@ -181,7 +181,7 @@ export default function Cards() {
         onClick={ handleClickCart }
         data-testid={ `${customerProducts}__${dataTestid.buttonCart}` }
         disabled={ isValueTotal }
-        className="buttonCar"
+        class="btn-primary"
       >
         Ver Carrinho
         {' '}
