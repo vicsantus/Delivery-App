@@ -1,33 +1,39 @@
 .card {
+  align-content: center;
+  align-items: center;
   background: white;
   border: 1px solid #b1c2be;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 486px;
+  justify-content: space-evenly;
   margin: 35px 12px 5px;
   padding: 0;
   width: 18rem;
+}
+
+.card > div:first-child {
+  padding: 0;
 }
 
 .g-4 {
   align-items: center;
   display: flex;
   flex-direction: column;
+  gap: 300px;
   justify-content: center;
 }
 
 .cardFooter {
   display: flex;
+  flex-flow: row nowrap;
   justify-content: center;
-  width: 100%;
 }
 
-.quantity {
-  background: white;
-  box-sizing: border-box;
-  left: 41.78%;
-  right: 41.78%;
-  top: 39.54px;
-  width: 15%;
+.cardFooter > form > input {
+  width: 61.98px;
 }
 
 .value {
@@ -36,18 +42,54 @@
 }
 
 .card-img-top {
-  margin-left: 5%;
-  padding: 10px;
+  height: auto;
+  max-height: 286px;
+  width: auto;
+}
+
+.card-body {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  justify-content: center;
+  line-height: 28px;
+  padding: 0;
+}
+
+.card-body > p:before {
+  content: 'R$ ';
+}
+
+.cardFooter > button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.cardFooter > button:last-child {
+  border-radius: 0 10px 10px 0;
 }
 
 .buttonSub {
+  align-content: center;
+  align-items: center;
   background: #036b52;
   border: #036b52;
+  border-radius: 10px;
+  color: #f2fffc;
+  display: flex;
+  font-family: Roboto , sans-serif;
+  font-size: 48px;
   font-style: normal;
   font-weight: 700;
-  height: 80%;
+  height: 51.25px;
+  justify-content: center;
+  line-height: 56px;
+  margin-bottom: 20px;
   text-align: center;
-  width: 15%;
+  width: 50px;
 }
 
 .buttonSub:hover {
@@ -59,34 +101,48 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  width: 100%;
+
+  /* margin-bottom: 300px; */
+  width: 1800px;
 }
 
-.btn-primary {
+.btn-order {
   align-items: center;
   background: #036b52;
   border: #036b52;
   border-radius: 10px;
-  color: white;
+  color: #f2fffc;
   display: flex;
-  height: 45px;
+  font-family: Roboto , sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  height: 90px;
   justify-content: center;
+  left: 70%;
+  line-height: 42px;
   margin-bottom: 10px;
+  max-width: 500px;
   padding: 20px;
+  position: fixed;
   text-align: center;
+  top: 90%;
+  width: auto;
 }
 
-.btn-primary:disabled {
+.btn-order:disabled {
   align-items: center;
   background: #048a6b;
   border: #048a6b;
   border-radius: 10px;
   color: white;
   display: flex;
-  height: 45px;
+
+  /* height: 45px; */
   justify-content: center;
   margin-bottom: 10px;
-  padding: 20px;
+
+  /* padding: 20px; */
   text-align: center;
 }
 

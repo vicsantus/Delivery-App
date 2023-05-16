@@ -85,77 +85,77 @@ export default function Checkout() {
   return (
     <div className="content">
       <h2 className="title">Finalizar Pedido</h2>
-      <table>
-        <thead className="thead">
-          <tr>
+      <div className="div-table">
+        <table>
+          <thead className="thead">
             <th>Item</th>
             <th>Descrição</th>
             <th>quantidade</th>
             <th>Valor unitário</th>
             <th>Sub-total</th>
             <th>Remover Item</th>
-          </tr>
-        </thead>
-        <tbody name="tbody">
-          {Array.isArray(newArray) ? (
-            newArray.map((item, index) => (
-              <tr key={ index }>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-item-number-${index}`
-                  }
-                >
-                  {index + 1}
-                </td>
-                <td
-                  data-testid={ `customer_checkout__element-order-table-name-${index}` }
-                >
-                  {item.name}
-
-                </td>
-
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-quantity-${index}`
-                  }
-                >
-                  {item.quantity}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-unit-price-${index}`
-                  }
-                >
-                  {item.unitValue.toString().replace('.', ',')}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-sub-total-${index}`
-                  }
-                >
-                  {item.totalValue.toFixed(2).toString().replace('.', ',')}
-                </td>
-                <td className="td">
-                  <button
-                    className="btn-remove"
-                    type="button"
+          </thead>
+          <tbody name="tbody">
+            {Array.isArray(newArray) ? (
+              newArray.map((item, index) => (
+                <tr key={ index }>
+                  <td
                     data-testid={
-                      `customer_checkout__element-order-table-remove-${index}`
+                      `customer_checkout__element-order-table-item-number-${index}`
                     }
-                    id={ item.id }
-                    onClick={ () => deletedProduct(item) }
                   >
-                    Remover
-                  </button>
-                </td>
+                    {index + 1}
+                  </td>
+                  <td
+                    data-testid={ `customer_checkout__element-order-table-name-${index}` }
+                  >
+                    {item.name}
 
-              </tr>
+                  </td>
 
-            ))
-          ) : (
-            <p>Não tem itens no carrinho.</p>
-          )}
-        </tbody>
+                  <td
+                    data-testid={
+                      `customer_checkout__element-order-table-quantity-${index}`
+                    }
+                  >
+                    {item.quantity}
+                  </td>
+                  <td
+                    data-testid={
+                      `customer_checkout__element-order-table-unit-price-${index}`
+                    }
+                  >
+                    {item.unitValue.toString().replace('.', ',')}
+                  </td>
+                  <td
+                    data-testid={
+                      `customer_checkout__element-order-table-sub-total-${index}`
+                    }
+                  >
+                    {item.totalValue.toFixed(2).toString().replace('.', ',')}
+                  </td>
+                  <td className="td">
+                    <button
+                      className="btn-remove"
+                      type="button"
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
+                      id={ item.id }
+                      onClick={ () => deletedProduct(item) }
+                    >
+                      Remover
+                    </button>
+                  </td>
+
+                </tr>
+
+              ))
+            ) : (
+              <p>Não tem itens no carrinho.</p>
+            )}
+          </tbody>
+        </table>
         <h4
           className="total-price"
           data-testid="customer_checkout__element-order-total-price"
@@ -165,7 +165,7 @@ export default function Checkout() {
           {totalPrice}
 
         </h4>
-      </table>
+      </div>
 
       <h2 className="title">Detalhes e Endereço para Entrega</h2>
       <div className="form-checkout">

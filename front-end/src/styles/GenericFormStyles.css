@@ -1,10 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap') ;
+
+* {
+  box-sizing: border-box;
+}
+
 .form-generic {
   background: #eaf1ef;
   border: 1px solid #b1c2be;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-flow: column nowrap;
   font-weight: 400;
-  height: 400px;
-  margin: 20% auto;
-  padding: 40px;
-  width: 50%;
+  height: 508px;
+  justify-content: space-evenly;
+  width: 425px;
+}
+
+.form-generic > form {
+  align-content: space-evenly;
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  margin: 0;
+}
+
+.div_login {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 50px;
+  height: auto;
+  justify-content: center;
+}
+
+.div_login > img {
+  height: 10%;
+  margin-top: 5%;
+  width: 10%;
+}
+
+.form-generic > form > div > label {
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  text-indent: 19px;
+}
+
+.form-generic > form > div > input {
+  font-family: Roboto , sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  height: 70px;
+  line-height: 28px;
+  text-indent: 20px;
+  width: 371px;
+}
+
+.form-generic > div {
+  align-content: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.form-generic > div > button {
+  font-family: Roboto , sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  height: 59px;
+  line-height: 33px;
+  text-align: center;
+  width: 370px;
 }

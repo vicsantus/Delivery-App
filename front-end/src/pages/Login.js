@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import GenericForm from '../components/GenericForm';
+import deliveryLogo from '../images/delivery_logo.png';
 
 export default function Login() {
   const history = useHistory();
@@ -17,7 +18,8 @@ export default function Login() {
     }
   });
   return (
-    <div>
+    <div className="div_login">
+      <img src={ deliveryLogo } alt="logo" />
       <GenericForm />
     </div>
   );

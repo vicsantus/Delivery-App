@@ -73,7 +73,8 @@ export default function Seler() {
                 </p>
               </div>
               <div
-                className="status"
+                className={ `status ${sale.status !== 'Em Trânsito'
+                  ? sale.status : 'emTransito'}` }
               >
                 <p data-testid={ `seller_orders__element-delivery-status-${sale.id}` }>
                   {sale.status}

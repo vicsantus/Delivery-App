@@ -1,8 +1,8 @@
-import { useLocation, useHistory } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
-import '../styles/GenericFormStyles.css';
+import { Button, Form } from 'react-bootstrap';
+import { useHistory, useLocation } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import '../styles/GenericFormStyles.css';
 
 export default function GenericForm() {
   const history = useHistory();

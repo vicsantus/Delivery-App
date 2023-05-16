@@ -58,7 +58,10 @@ export default function MyOrders() {
                 </p>
               </div>
 
-              <div className="status">
+              <div
+                className={ `status ${order.status !== 'Em Trânsito'
+                  ? order.status : 'emTransito'}` }
+              >
                 <p data-testid={ `customer_orders__element-delivery-status-${order.id}` }>
                   {order.status}
 
