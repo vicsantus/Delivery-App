@@ -1,6 +1,6 @@
 # Seja Bem-Vindo(a) ao repositório do projeto Delivery App
 
-Delivery App é um projeto que simula um aplicativo de delivery para uma distribuidora de bebidas. Ele permite que os usuários façam login, cadastrem-se, realizem pedidos e acompanhem o status dos pedidos. Além disso, a pessoa administradora tem a capacidade de adicionar novos membros da empresa.
+Delivery App é um projeto que simula um aplicativo de delivery para uma distribuidora de bebidas. Ele permite que os usuários façam login, cadastrem-se, realizem pedidos e acompanhem o status dos pedidos. Além disso, a pessoa administradora tem a capacidade de adicionar novos membros da empresa. Foi construido toda parte front-end e back-end.
 
 ## Funcionalidades Principais
 - Autenticação de usuários: Os usuários podem fazer login para acessar o aplicativo.
