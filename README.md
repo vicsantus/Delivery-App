@@ -2,6 +2,9 @@
 
 Delivery App é um projeto que simula um aplicativo de delivery para uma distribuidora de bebidas. Ele permite que os usuários façam login, cadastrem-se, realizem pedidos e acompanhem o status dos pedidos. Além disso, a pessoa administradora tem a capacidade de adicionar novos membros da empresa. Foi construido toda parte front-end e back-end.
 
+## Teste de funcionamento
+https://delivery-app-frontend-production.up.railway.app/login
+
 ## Funcionalidades Principais
 - Autenticação de usuários: Os usuários podem fazer login para acessar o aplicativo.
 - Cadastro de usuário: Os usuários podem se cadastrar fornecendo informações básicas.
