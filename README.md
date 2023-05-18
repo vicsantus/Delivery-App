@@ -13,6 +13,7 @@ Delivery App é um projeto que simula um aplicativo de delivery para uma distrib
 
 - JavaScript
 - React
+- React Native
 - Context API
 - Node.js
 - Express
@@ -24,7 +25,7 @@ Delivery App é um projeto que simula um aplicativo de delivery para uma distrib
 
 ## Configuração do Ambiente de Desenvolvimento
 
-1. Clone este repositório: `git clone git@github.com:bmediato/DeliveryApp.git`
+1. Clone este repositório: `git clone git@github.com:vicsantus/Delivery-App.git`
 2. Navegue até o diretório do projeto: `cd DeliveryApp`
 3. Instale as dependências: `npm install`e `npm run dev:prestart`
 4. Inicialize o container: `docker-compose up -d`
@@ -57,5 +58,5 @@ Contribuições são bem-vindas! Se você deseja contribuir com o projeto, siga 
 
 ## Contato
 
-Se tiver alguma dúvida ou sugestão sobre o projeto, entre em contato com <a href = "mailto:beatriz.mediatto2@gmail.com">beatriz.mediatto2@gmail.com</a>
+Se tiver alguma dúvida ou sugestão sobre o projeto, entre em contato com <a href = "mailto:victor.santos.fk@hotmail.com">victor.santos.fk@hotmail.com</a>
 
