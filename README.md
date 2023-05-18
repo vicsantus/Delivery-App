@@ -26,7 +26,7 @@ Delivery App é um projeto que simula um aplicativo de delivery para uma distrib
 ## Configuração do Ambiente de Desenvolvimento
 
 1. Clone este repositório: `git clone git@github.com:vicsantus/Delivery-App.git`
-2. Navegue até o diretório do projeto: `cd DeliveryApp`
+2. Navegue até o diretório do projeto: `cd Delivery-App`
 3. Instale as dependências: `npm install`e `npm run dev:prestart`
 4. Inicialize o container: `docker-compose up -d`
 5. Configure o banco de dados MySQL:
